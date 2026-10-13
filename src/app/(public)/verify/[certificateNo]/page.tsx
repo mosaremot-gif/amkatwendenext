@@ -1,27 +1,42 @@
 import { Suspense } from "react";
-import SkrVerifyClientView from "@/components/SkrVerifyClientView";
 import { Loader2 } from "lucide-react";
+import SkrVerifyClientView from "@/components/SkrVerifyClientView";
 
 interface PageProps {
-  params: Promise<{ certificateNo: string }>;
+  params: Promise<{
+    certificateNo: string;
+  }>;
 }
 
-export default async function SkrPublicVerifyPage({ params }: PageProps) {
-  const resolvedParams = await params;
-  const certificateNo = resolvedParams.certificateNo;
-
+function VerificationLoading() {
   return (
-    <Suspense
-      fallback={
-        <div className="min-h-screen bg-[#0B0F19] text-slate-100 flex flex-col items-center justify-center p-6">
-          <Loader2 className="w-10 h-10 animate-spin text-blue-500 mb-4" />
-          <p className="text-slate-400 text-sm font-medium">
-            Validating SKR Record from Vault Ledger...
-          </p>
-        </div>
-      }
-    >
-      <SkrVerifyClientView certificateNo={certificateNo} />
+    <div className="flex min-h-screen flex-col items-center justify-center bg-[#0B0F19] p-6 text-slate-100">
+      <Loader2
+        className="mb-4 h-10 w-10 animate-spin text-blue-500"
+        aria-hidden="true"
+      />
+
+      <p className="text-center text-sm font-medium text-slate-400">
+        Validating SKR Record from Vault Ledger...
+      </p>
+    </div>
+  );
+}
+
+async function VerificationContent({
+  params,
+}: {
+  params: PageProps["params"];
+}) {
+  const { certificateNo } = await params;
+
+  return <SkrVerifyClientView certificateNo={certificateNo} />;
+}
+
+export default function SkrPublicVerifyPage({ params }: PageProps) {
+  return (
+    <Suspense fallback={<VerificationLoading />}>
+      <VerificationContent params={params} />
     </Suspense>
   );
 }
