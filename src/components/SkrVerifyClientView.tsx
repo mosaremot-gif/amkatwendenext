@@ -292,7 +292,7 @@ export default function SkrVerifyClientView({
                 Gross Weight
               </span>
               <span className="text-amber-400 font-bold">
-                {Number(data.grossWeight).toLocaleString()} g
+                {Number(data.grossWeight).toLocaleString()} KG
               </span>
             </div>
             <div>
@@ -300,7 +300,7 @@ export default function SkrVerifyClientView({
                 Fine Weight
               </span>
               <span className="text-amber-400 font-bold">
-                {Number(data.fineWeight).toLocaleString()} g
+                {Number(data.fineWeight).toLocaleString()} KG
               </span>
             </div>
             <div>
