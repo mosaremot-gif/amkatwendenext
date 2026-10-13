@@ -17,6 +17,8 @@ import {
  
 } from "lucide-react";
 
+export const dynamic = "force-dynamic";
+
 interface CertificateData {
   certificateNo: string;
   consignmentId: string;
