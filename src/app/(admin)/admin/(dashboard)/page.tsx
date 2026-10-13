@@ -76,14 +76,14 @@ export default function AdminDashboardPage() {
         </div>
         <div className="bg-slate-900/60 border border-slate-800/80 p-6 rounded-2xl backdrop-blur-sm">
           <div className="flex items-center justify-between text-slate-400 mb-2">
-            <span className="text-sm font-medium">Active Transit / Stored</span>
+            <span className="text-sm font-medium">Active Transit / Hold</span>
             <Truck className="w-5 h-5 text-emerald-400" />
           </div>
           <div className="text-3xl font-bold text-white">
             {
               certificates.filter(
                 (c) =>
-                  c.currentStatus === "STORED" ||
+                  c.currentStatus === "HOLD" ||
                   c.currentStatus === "IN_TRANSIT",
               ).length
             }
@@ -161,7 +161,7 @@ export default function AdminDashboardPage() {
                     <td className="px-6 py-4">
                       <span
                         className={`px-3 py-1 rounded-full text-xs font-semibold ${
-                          cert.currentStatus === "STORED"
+                          cert.currentStatus === "HOLD"
                             ? "bg-blue-500/10 text-blue-400 border border-blue-500/20"
                             : cert.currentStatus === "IN_TRANSIT"
                               ? "bg-amber-500/10 text-amber-400 border border-amber-500/20"

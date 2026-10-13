@@ -52,7 +52,7 @@ function SkrManageForm({ params }: PageProps) {
     estimatedValue: "",
     priceBasis: "LBMA Spot",
     currency: "USD",
-    currentStatus: "STORED",
+    currentStatus: "HOLD",
     origin: "NAIROBI-KENYA",
     destination: "DUBAI",
     transporter: "",
@@ -550,17 +550,17 @@ function SkrManageForm({ params }: PageProps) {
             </div>
           </div>
 
-          <div className="flex justify-end gap-4 pt-4 border-t border-slate-800">
+          <div className="flex flex-col-reverse sm:flex-row items-center justify-end gap-3 pt-6 border-t border-slate-800">
             <Link
               href="/admin"
-              className="bg-slate-800 hover:bg-slate-700 text-slate-300 px-6 py-2.5 rounded-xl font-medium transition-all"
+              className="w-full sm:w-auto text-center bg-slate-800 hover:bg-slate-700 text-slate-300 px-6 py-3 sm:py-2.5 rounded-xl font-medium transition-all"
             >
               Cancel
             </Link>
             <button
               type="submit"
               disabled={saving}
-              className="bg-[#1C4E9E] hover:bg-[#163c7b] text-white px-8 py-2.5 rounded-xl font-medium flex items-center gap-2 shadow-lg shadow-blue-900/30 transition-all disabled:opacity-50"
+              className="w-full sm:w-auto justify-center bg-[#1C4E9E] hover:bg-[#163c7b] text-white px-8 py-3 sm:py-2.5 rounded-xl font-medium flex items-center gap-2 shadow-lg shadow-blue-900/30 transition-all disabled:opacity-50"
             >
               {saving ? (
                 <Loader2 className="w-5 h-5 animate-spin" />
