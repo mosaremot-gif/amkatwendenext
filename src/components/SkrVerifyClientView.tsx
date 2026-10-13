@@ -362,20 +362,25 @@ export default function SkrVerifyClientView({
               </span>
               <span className="text-slate-200">{data.transporter || "-"}</span>
             </div>
+
             <div>
               <span className="text-slate-500 block uppercase font-semibold mb-1">
-                Tracking No
+                Dispatch Date
               </span>
-              <span className="text-slate-200 font-mono">
-                {data.trackingNo || "-"}
+              <span className="text-slate-200">
+                {data.dispatchDate
+                  ? new Date(data.dispatchDate).toLocaleDateString()
+                  : "-"}
               </span>
             </div>
             <div>
               <span className="text-slate-500 block uppercase font-semibold mb-1">
-                Insurance Policy
+                Arrival Date
               </span>
-              <span className="text-slate-200 font-mono">
-                {data.insurancePolicy || "-"}
+              <span className="text-slate-200">
+                {data.arrivalDate
+                  ? new Date(data.arrivalDate).toLocaleDateString()
+                  : "-"}
               </span>
             </div>
           </div>

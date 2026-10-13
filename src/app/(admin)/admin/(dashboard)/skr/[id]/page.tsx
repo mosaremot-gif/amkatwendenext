@@ -3,6 +3,17 @@
 import { useEffect, useState, use, Suspense } from "react";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
+import {
+  Popover,
+  PopoverContent,
+  PopoverTrigger,
+} from "@/components/ui/popover";
+import { CalendarIcon } from "lucide-react";
+import { Calendar } from "@/components/ui/calendar";
+
+import { Button } from "@/components/ui/button";
+
+import { format } from "date-fns";
 import { ArrowLeft, Loader2, Save, CheckCircle2 } from "lucide-react";
 
 interface PageProps {
@@ -13,6 +24,8 @@ function SkrManageForm({ params }: PageProps) {
   const { id } = use(params);
   const router = useRouter();
   const isNew = id === "new";
+  const [dispatchDate, setDispatchDate] = useState<Date | undefined>();
+  const [arrivalDate, setArrivalDate] = useState<Date | undefined>();
 
   const [loading, setLoading] = useState(!isNew);
   const [saving, setSaving] = useState(false);
@@ -43,9 +56,7 @@ function SkrManageForm({ params }: PageProps) {
     origin: "NAIROBI-KENYA",
     destination: "DUBAI",
     transporter: "",
-    trackingNo: "",
     insuranceValue: "",
-    insurancePolicy: "",
   });
 
   useEffect(() => {
@@ -55,6 +66,10 @@ function SkrManageForm({ params }: PageProps) {
         .then((data) => {
           if (data.success) {
             setFormData(data.data);
+            if (data.data.dispatchDate)
+              setDispatchDate(new Date(data.data.dispatchDate));
+            if (data.data.arrivalDate)
+              setArrivalDate(new Date(data.data.arrivalDate));
           }
           setLoading(false);
         })
@@ -74,6 +89,11 @@ function SkrManageForm({ params }: PageProps) {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setSaving(true);
+    const payload = {
+      ...formData,
+      dispatchDate: dispatchDate ? dispatchDate.toISOString() : null,
+      arrivalDate: arrivalDate ? arrivalDate.toISOString() : null,
+    };
 
     try {
       const endpoint = isNew ? "/api/admin/skrs" : `/api/admin/skrs/${id}`;
@@ -82,7 +102,7 @@ function SkrManageForm({ params }: PageProps) {
       const res = await fetch(endpoint, {
         method,
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(formData),
+        body: JSON.stringify(payload),
       });
 
       const data = await res.json();
@@ -456,31 +476,76 @@ function SkrManageForm({ params }: PageProps) {
                   className="w-full bg-slate-950 border border-slate-800 rounded-xl px-4 py-2.5 text-white focus:outline-none focus:border-blue-500 transition-all"
                 />
               </div>
+              {/* Dispatch Date Picker */}
               <div>
                 <label className="block text-xs font-medium text-slate-400 uppercase mb-2">
-                  Tracking No / AWB
+                  Dispatch Date
                 </label>
-                <input
-                  type="text"
-                  name="trackingNo"
-                  placeholder="AWB: 618-00012345"
-                  value={formData.trackingNo}
-                  onChange={handleChange}
-                  className="w-full bg-slate-950 border border-slate-800 rounded-xl px-4 py-2.5 text-white focus:outline-none focus:border-blue-500 transition-all"
-                />
+                <Popover>
+                  <PopoverTrigger
+                    render={
+                      <Button
+                        variant="outline"
+                        className="w-full justify-start text-left font-normal bg-slate-950 border-slate-800 text-white hover:bg-slate-900"
+                      />
+                    }
+                  >
+                    <CalendarIcon className="mr-2 h-4 w-4 text-blue-400" />
+                    {dispatchDate ? (
+                      format(dispatchDate, "PPP")
+                    ) : (
+                      <span className="text-slate-500">
+                        Select dispatch date
+                      </span>
+                    )}
+                  </PopoverTrigger>
+                  <PopoverContent
+                    className="w-auto p-0 bg-slate-900 border-slate-800 text-white shadow-xl"
+                    align="start"
+                  >
+                    <Calendar
+                      mode="single"
+                      selected={dispatchDate}
+                      onSelect={setDispatchDate}
+                    />
+                  </PopoverContent>
+                </Popover>
               </div>
+
+              {/* Arrival Date Picker */}
               <div>
                 <label className="block text-xs font-medium text-slate-400 uppercase mb-2">
-                  Insurance Policy
+                  Arrival Date
                 </label>
-                <input
-                  type="text"
-                  name="insurancePolicy"
-                  placeholder="IRA-LIC-2028-AX"
-                  value={formData.insurancePolicy}
-                  onChange={handleChange}
-                  className="w-full bg-slate-950 border border-slate-800 rounded-xl px-4 py-2.5 text-white focus:outline-none focus:border-blue-500 transition-all"
-                />
+                <Popover>
+                  <PopoverTrigger
+                    render={
+                      <Button
+                        variant="outline"
+                        className="w-full justify-start text-left font-normal bg-slate-950 border-slate-800 text-white hover:bg-slate-900"
+                      />
+                    }
+                  >
+                    <CalendarIcon className="mr-2 h-4 w-4 text-blue-400" />
+                    {arrivalDate ? (
+                      format(arrivalDate, "PPP")
+                    ) : (
+                      <span className="text-slate-500">
+                        Select arrival date
+                      </span>
+                    )}
+                  </PopoverTrigger>
+                  <PopoverContent
+                    className="w-auto p-0 bg-slate-900 border-slate-800 text-white shadow-xl"
+                    align="start"
+                  >
+                    <Calendar
+                      mode="single"
+                      selected={arrivalDate}
+                      onSelect={setArrivalDate}
+                    />
+                  </PopoverContent>
+                </Popover>
               </div>
             </div>
           </div>

@@ -32,9 +32,7 @@ interface CreateSkrRequestBody {
   dispatchDate?: string;
   arrivalDate?: string;
   transporter?: string;
-  trackingNo?: string;
   insuranceValue?: string | number;
-  insurancePolicy?: string;
 }
 
 // GET: Fetch all SKR certificates for the dashboard list
@@ -92,17 +90,15 @@ export async function POST(req: Request) {
         estimatedValue: Number(body.estimatedValue),
         priceBasis: body.priceBasis || "LBMA Spot",
         currency: body.currency || "USD",
-        currentStatus: body.currentStatus || CertificateStatus.STORED,
+        currentStatus: body.currentStatus || CertificateStatus.HOLD,
         origin: body.origin,
         destination: body.destination,
         dispatchDate: body.dispatchDate ? new Date(body.dispatchDate) : null,
         arrivalDate: body.arrivalDate ? new Date(body.arrivalDate) : null,
         transporter: body.transporter || null,
-        trackingNo: body.trackingNo || null,
         insuranceValue: body.insuranceValue
           ? Number(body.insuranceValue)
           : null,
-        insurancePolicy: body.insurancePolicy || null,
       },
     });
 
@@ -113,8 +109,6 @@ export async function POST(req: Request) {
       }/verify/${newCertificate.certificateNo}`;
 
       await resend.emails.send({
-        // Note: To use info@amkatwendelogistics.com, make sure to add and verify amkatwendelogistics.com in your Resend dashboard.
-        // For immediate testing, you can temporarily use "Acme <onboarding@resend.dev>".
         from: "Amka Twende Vault Services <info@amkatwendelogistics.com>",
         to: [newCertificate.clientEmail],
         subject: `Official Safe Keeping Receipt Issued - ${certificateNo}`,

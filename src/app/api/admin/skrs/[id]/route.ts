@@ -45,6 +45,9 @@ export async function PUT(req: Request, context: RouteContext) {
         clientReference: body.clientReference || "-",
         clientType: body.clientType || "Standard",
         legalName: body.legalName || "-",
+        clientName: body.clientName || null,
+        clientEmail: body.clientEmail || null,
+        clientPhone: body.clientPhone || null,
         consignor: body.consignor,
         consignee: body.consignee,
         metalType: body.metalType || "Gold",
@@ -58,17 +61,15 @@ export async function PUT(req: Request, context: RouteContext) {
         estimatedValue: Number(body.estimatedValue),
         priceBasis: body.priceBasis || "LBMA Spot",
         currency: body.currency || "USD",
-        currentStatus: body.currentStatus || CertificateStatus.STORED,
+        currentStatus: body.currentStatus || CertificateStatus.HOLD,
         origin: body.origin,
         destination: body.destination,
         dispatchDate: body.dispatchDate ? new Date(body.dispatchDate) : null,
         arrivalDate: body.arrivalDate ? new Date(body.arrivalDate) : null,
         transporter: body.transporter || null,
-        trackingNo: body.trackingNo || null,
         insuranceValue: body.insuranceValue
           ? Number(body.insuranceValue)
           : null,
-        insurancePolicy: body.insurancePolicy || null,
       },
     });
 
