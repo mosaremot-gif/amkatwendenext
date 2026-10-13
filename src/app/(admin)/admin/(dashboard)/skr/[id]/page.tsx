@@ -349,7 +349,7 @@ function SkrManageForm({ params }: PageProps) {
               </div>
               <div>
                 <label className="block text-xs font-medium text-slate-400 uppercase mb-2">
-                  Gross Weight (g)
+                  Gross Weight (KG)
                 </label>
                 <input
                   type="number"
@@ -364,7 +364,7 @@ function SkrManageForm({ params }: PageProps) {
               </div>
               <div>
                 <label className="block text-xs font-medium text-slate-400 uppercase mb-2">
-                  Fine Weight (g)
+                  Fine Weight (KG)
                 </label>
                 <input
                   type="number"

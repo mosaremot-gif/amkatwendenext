@@ -156,7 +156,7 @@ export default function AdminDashboardPage() {
                       {cert.consignee}
                     </td>
                     <td className="px-6 py-4">
-                      {cert.metalType} ({cert.grossWeight}g)
+                      {cert.metalType} ({cert.grossWeight}KG)
                     </td>
                     <td className="px-6 py-4">
                       <span
