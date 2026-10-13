@@ -130,7 +130,7 @@ export const Footer: React.FC = () => {
                   className="hover:text-[#F07C33] transition-colors flex items-center gap-1.5"
                 >
                   <ArrowUpRight className="w-3.5 h-3.5 text-[#F07C33]" />
-                  <span>Track SKR</span>
+                  <span>Track SKR </span>
                 </a>
               </li>
               <li>
