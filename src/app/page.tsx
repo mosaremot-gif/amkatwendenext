@@ -8,6 +8,7 @@ import { Process } from "@/components/Process";
 import { QuoteContact } from "@/components/QuoteContact";
 import { Values } from "@/components/Values";
 import { Footer } from "@/components/Footer";
+import { VerifySkr } from "@/components/VerifySkr";
 
 export default function Home() {
   return (
@@ -19,6 +20,9 @@ export default function Home() {
       <main className="flex flex-col w-full">
         <section id="home">
           <Hero />
+        </section>
+        <section id="track">
+          <VerifySkr />
         </section>
 
         <section id="about">

@@ -1,0 +1,65 @@
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+// Status Enum for Tracking
+enum CertificateStatus {
+  STORED
+  IN_TRANSIT
+  RELEASEDP
+  HOLD
+}
+
+model SkrCertificate {
+  id               String            @id @default(cuid())
+  
+  // Header / Core Verification Info
+  certificateNo   String            @unique @map("certificate_no") // e.g., "SKR2026000003"
+  consignmentId   String            @map("consignment_id")         // e.g., "F7E17E712E"
+  issueDate       DateTime          @map("issue_date")             // e.g., Sep 29, 2026, 08:01 PM
+  clientReference String?           @map("client_reference")       // e.g., "-"
+  clientType      String?           @map("client_type")            // e.g., "-"
+
+  // Owner / Client Information & Contact Details
+  legalName       String?           @map("legal_name")
+  clientName      String?           @map("client_name")   
+  clientEmail     String?           @map("client_email")   
+  clientPhone     String?           @map("client_phone")   
+  consignor       String            @map("consignor")
+  consignee       String            @map("consignee")                                          // e.g., "RUYAT ALTAMYZ L.L.C BUSSINESS..."
+
+  // Metal / Product Details
+  metalType       String            @default("Gold") @map("metal_type") // e.g., "Gold"
+  form            String            @default("Bars")                   // e.g., "Bars"
+  refinery        String?           @default("N/A")                    // e.g., "N/A"
+  serialNumber    String            @map("serial_number")              // e.g., "AK-20260929-NBO-010-97P-0002"
+  assayPurity     String            @map("assay_purity")               // e.g., "97.2"
+  numberOfUnits   Int               @map("number_of_units")            // e.g., 100
+  grossWeight     Decimal           @map("gross_weight") @db.Decimal(12, 3) // e.g., 100000 (g)
+  fineWeight      Decimal           @map("fine_weight")  @db.Decimal(12, 3) // e.g., 1000 (g)
+  estimatedValue  Decimal           @map("estimated_value") @db.Decimal(15, 2) // e.g., 13351199.99
+  priceBasis      String            @default("LBMA Spot") @map("price_basis") // e.g., "LBMA Spot"
+  currency        String            @default("USD")                     // e.g., "USD"
+  currentStatus   CertificateStatus @default(STORED) @map("current_status")   // e.g., IN_TRANSIT
+
+  // Shipment & Logistics
+  origin          String                                           // e.g., "NAIROBI-KENYA"
+  destination     String                                           // e.g., "DUBAI"
+  dispatchDate    DateTime?         @map("dispatch_date")          // e.g., Sep 28, 2026
+  arrivalDate     DateTime?         @map("arrival_date")           // e.g., Oct 2, 2026
+  transporter     String?                                          // e.g., "PHENOM EXECUTIVE JET"
+  trackingNo      String?           @map("tracking_no")            // e.g., "AWB: 618-00012345"
+  insuranceValue  Decimal?          @map("insurance_value") @db.Decimal(15, 2) // e.g., 13351200.00
+  insurancePolicy String?           @map("insurance_policy")       // e.g., "IRA-LIC-2028-AX-112233"
+
+  // System Timestamps
+  createdAt       DateTime          @default(now()) @map("created_at")
+  updatedAt       DateTime          @updatedAt @map("updated_at")
+
+  @@map("skr_certificates")
+}

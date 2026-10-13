@@ -69,6 +69,13 @@ export const Header: React.FC = () => {
           >
             Services
           </a>
+          <a
+            onClick={() => setIsOpen(false)}
+            href="#track"
+            className="text-lg font-medium text-slate-800 hover:text-[#1C4E9E]"
+          >
+            Track SKR
+          </a>
           <a href="#contact" className="hover:text-[#1C4E9E] transition-colors">
             Contact Us
           </a>
@@ -130,6 +137,13 @@ export const Header: React.FC = () => {
             className="text-lg font-medium text-slate-800 hover:text-[#1C4E9E]"
           >
             Services
+          </a>
+          <a
+            onClick={() => setIsOpen(false)}
+            href="#track"
+            className="text-lg font-medium text-slate-800 hover:text-[#1C4E9E]"
+          >
+            Track SKR
           </a>
           <a
             onClick={() => setIsOpen(false)}

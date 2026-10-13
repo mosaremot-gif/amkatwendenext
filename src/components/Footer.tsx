@@ -126,6 +126,15 @@ export const Footer: React.FC = () => {
               </li>
               <li>
                 <a
+                  href="#track"
+                  className="hover:text-[#F07C33] transition-colors flex items-center gap-1.5"
+                >
+                  <ArrowUpRight className="w-3.5 h-3.5 text-[#F07C33]" />
+                  <span>Track SKR</span>
+                </a>
+              </li>
+              <li>
+                <a
                   href="#services"
                   className="hover:text-[#F07C33] transition-colors flex items-center gap-1.5"
                 >
@@ -222,10 +231,7 @@ export const Footer: React.FC = () => {
 
         {/* Bottom Copyright Strip */}
         <div className="pt-8 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-blue-200">
-          <p>
-            © {new Date().getFullYear()} Amka Twende Logistics. All Rights
-            Reserved.
-          </p>
+          <p>© 2026 Amka Twende Logistics. All Rights Reserved.</p>
 
           <div className="flex items-center gap-2 text-blue-200">
             <ShieldCheck className="w-4 h-4 text-[#F07C33]" />
