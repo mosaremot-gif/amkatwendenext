@@ -36,7 +36,7 @@ interface CertificateData {
   estimatedValue: string;
   priceBasis: string;
   currency: string;
-  currentStatus: "STORED" | "IN_TRANSIT" | "RELEASED" | "HOLD";
+  currentStatus: "PICKED" | "IN_TRANSIT" | "HOLD" | "DELIVERED";
   origin: string;
   destination: string;
   dispatchDate?: string;
@@ -77,14 +77,14 @@ export default function SkrVerifyClientView({
 
   const getStatusBadge = (status: string) => {
     switch (status) {
-      case "STORED":
-        return "bg-emerald-500/10 text-emerald-400 border-emerald-500/30";
+      case "PICKED":
+        return "bg-sky-500/10 text-sky-400 border-sky-500/30";
       case "IN_TRANSIT":
         return "bg-blue-500/10 text-blue-400 border-blue-500/30";
-      case "RELEASED":
-        return "bg-purple-500/10 text-purple-400 border-purple-500/30";
       case "HOLD":
         return "bg-amber-500/10 text-amber-400 border-amber-500/30";
+      case "DELIVERED":
+        return "bg-emerald-500/10 text-emerald-400 border-emerald-500/30";
       default:
         return "bg-slate-800 text-slate-300 border-slate-700";
     }
@@ -330,7 +330,7 @@ export default function SkrVerifyClientView({
               <span
                 className={`inline-block px-2.5 py-0.5 rounded-full border text-[11px] font-bold ${getStatusBadge(data.currentStatus)}`}
               >
-                {data.currentStatus}
+                {data.currentStatus.replace("_", " ")}
               </span>
             </div>
           </div>

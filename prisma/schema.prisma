@@ -9,10 +9,10 @@ generator client {
 
 // Status Enum for Tracking
 enum CertificateStatus {
-  STORED
+  PICKED
   IN_TRANSIT
-  RELEASEDP
   HOLD
+  DELIVERED
 }
 
 model SkrCertificate {
@@ -45,7 +45,7 @@ model SkrCertificate {
   estimatedValue  Decimal           @map("estimated_value") @db.Decimal(15, 2) // e.g., 13351199.99
   priceBasis      String            @default("LBMA Spot") @map("price_basis") // e.g., "LBMA Spot"
   currency        String            @default("USD")                     // e.g., "USD"
-  currentStatus   CertificateStatus @default(STORED) @map("current_status")   // e.g., IN_TRANSIT
+  currentStatus   CertificateStatus @default(HOLD) @map("current_status")   // e.g., IN_TRANSIT
 
   // Shipment & Logistics
   origin          String                                           // e.g., "NAIROBI-KENYA"

@@ -437,10 +437,10 @@ function SkrManageForm({ params }: PageProps) {
                   onChange={handleChange}
                   className="w-full bg-slate-950 border border-slate-800 rounded-xl px-4 py-2.5 text-white focus:outline-none focus:border-blue-500 transition-all"
                 >
-                  <option value="STORED">STORED</option>
-                  <option value="IN_TRANSIT">IN TRANSIT</option>
-                  <option value="RELEASED">RELEASED</option>
-                  <option value="HOLD">HOLD</option>
+                  <option value="PICKED">Picked</option>
+                  <option value="IN_TRANSIT">In Transit</option>
+                  <option value="HOLD">Hold</option>
+                  <option value="DELIVERED">Delivered</option>
                 </select>
               </div>
               <div>
