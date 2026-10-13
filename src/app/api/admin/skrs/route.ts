@@ -1,5 +1,6 @@
 import { NextResponse } from "next/server";
 import { prisma } from "@/lib/prisma";
+import crypto from "crypto";
 import { CertificateStatus } from "@prisma/client";
 import { Resend } from "resend";
 
@@ -61,9 +62,8 @@ export async function POST(req: Request) {
 
     // 1. Auto-generate official unique SKR tracking number
     const year = new Date().getFullYear();
-    const count = await prisma.skrCertificate.count();
-    const sequenceNum = String(count + 1).padStart(6, "0");
-    const certificateNo = `SKR${year}${sequenceNum}`;
+    const randomHex = crypto.randomBytes(4).toString("hex").toUpperCase();
+    const certificateNo = `SKR${year}-${randomHex}`;
 
     // 2. Save record to Neon Database via Prisma
     const newCertificate = await prisma.skrCertificate.create({
