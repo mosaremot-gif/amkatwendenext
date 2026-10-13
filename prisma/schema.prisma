@@ -53,10 +53,9 @@ model SkrCertificate {
   dispatchDate    DateTime?         @map("dispatch_date")          // e.g., Sep 28, 2026
   arrivalDate     DateTime?         @map("arrival_date")           // e.g., Oct 2, 2026
   transporter     String?                                          // e.g., "PHENOM EXECUTIVE JET"
-  trackingNo      String?           @map("tracking_no")            // e.g., "AWB: 618-00012345"
+  
   insuranceValue  Decimal?          @map("insurance_value") @db.Decimal(15, 2) // e.g., 13351200.00
-  insurancePolicy String?           @map("insurance_policy")       // e.g., "IRA-LIC-2028-AX-112233"
-
+ 
   // System Timestamps
   createdAt       DateTime          @default(now()) @map("created_at")
   updatedAt       DateTime          @updatedAt @map("updated_at")

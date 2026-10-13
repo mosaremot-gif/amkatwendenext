@@ -23,6 +23,9 @@ interface CertificateData {
   clientReference?: string;
   clientType?: string;
   legalName?: string;
+  clientName?: string;
+  clientEmail?: string;
+  clientPhone?: string;
   consignor: string;
   consignee: string;
   metalType: string;
@@ -236,6 +239,30 @@ export default function SkrVerifyClientView({
                 {data.consignee}
               </span>
             </div>
+            <div className="bg-slate-950/40 p-3.5 rounded-xl border border-slate-800/40 print:bg-white print:border-slate-300">
+              <span className="text-slate-500 print:text-slate-600 block uppercase font-semibold mb-1">
+                Client Name
+              </span>
+              <span className="text-slate-200 print:text-black font-medium">
+                {data.clientName || "-"}
+              </span>
+            </div>
+            <div className="bg-slate-950/40 p-3.5 rounded-xl border border-slate-800/40 print:bg-white print:border-slate-300">
+              <span className="text-slate-500 print:text-slate-600 block uppercase font-semibold mb-1">
+                Client Email
+              </span>
+              <span className="text-blue-400 print:text-blue-700 font-mono font-medium">
+                {data.clientEmail || "-"}
+              </span>
+            </div>
+            <div className="bg-slate-950/40 p-3.5 rounded-xl border border-slate-800/40 print:bg-white print:border-slate-300">
+              <span className="text-slate-500 print:text-slate-600 block uppercase font-semibold mb-1">
+                Client Phone
+              </span>
+              <span className="text-slate-200 print:text-black font-mono font-medium">
+                {data.clientPhone || "-"}
+              </span>
+            </div>
           </div>
         </div>
 
@@ -365,7 +392,7 @@ export default function SkrVerifyClientView({
 
             <div>
               <span className="text-slate-500 block uppercase font-semibold mb-1">
-                Dispatch Date
+                Date Deposited
               </span>
               <span className="text-slate-200">
                 {data.dispatchDate

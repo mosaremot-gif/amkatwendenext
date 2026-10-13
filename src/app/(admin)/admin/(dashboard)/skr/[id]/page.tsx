@@ -480,7 +480,7 @@ function SkrManageForm({ params }: PageProps) {
               {/* Dispatch Date Picker */}
               <div>
                 <label className="block text-xs font-medium text-slate-400 uppercase mb-2">
-                  Dispatch Date
+                  Date Deposited
                 </label>
                 <Popover>
                   <PopoverTrigger
@@ -496,7 +496,7 @@ function SkrManageForm({ params }: PageProps) {
                       format(dispatchDate, "PPP")
                     ) : (
                       <span className="text-slate-500">
-                        Select dispatch date
+                        Select Date Deposited
                       </span>
                     )}
                   </PopoverTrigger>

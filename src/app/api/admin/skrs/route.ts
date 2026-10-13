@@ -48,6 +48,9 @@ export async function GET() {
     const errorMessage =
       error instanceof Error ? error.message : "An unknown error occurred";
 
+    // Log the exact database error to terminal / Vercel logs
+    console.error("GET /api/admin/skrs Error:", error);
+
     return NextResponse.json(
       { success: false, error: errorMessage },
       { status: 500 },
