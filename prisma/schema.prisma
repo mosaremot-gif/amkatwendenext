@@ -42,7 +42,7 @@ model SkrCertificate {
   numberOfUnits String @default("1") @map("number_of_units")          // e.g., 100
   grossWeight     Decimal           @map("gross_weight") @db.Decimal(12, 3) // e.g., 100000 (g)
   fineWeight      Decimal           @map("fine_weight")  @db.Decimal(12, 3) // e.g., 1000 (g)
-  estimatedValue  Decimal           @map("estimated_value") @db.Decimal(15, 2) // e.g., 13351199.99
+  estimatedValue String @default("0.00") @map("estimated_value") // e.g., 13351199.99
   priceBasis      String            @default("LBMA Spot") @map("price_basis") // e.g., "LBMA Spot"
   currency        String            @default("USD")                     // e.g., "USD"
   currentStatus   CertificateStatus @default(HOLD) @map("current_status")   // e.g., IN_TRANSIT

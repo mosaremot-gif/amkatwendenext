@@ -24,7 +24,7 @@ interface CreateSkrRequestBody {
   numberOfUnits: string;
   grossWeight: string | number;
   fineWeight: string | number;
-  estimatedValue: string | number;
+  estimatedValue: string;
   priceBasis?: string;
   currency?: string;
   currentStatus?: CertificateStatus;
@@ -87,7 +87,7 @@ export async function POST(req: Request) {
         numberOfUnits: body.numberOfUnits || "1",
         grossWeight: Number(body.grossWeight),
         fineWeight: Number(body.fineWeight),
-        estimatedValue: Number(body.estimatedValue),
+        estimatedValue: body.estimatedValue?.trim() || "0.00",
         priceBasis: body.priceBasis || "LBMA Spot",
         currency: body.currency || "USD",
         currentStatus: body.currentStatus || CertificateStatus.HOLD,

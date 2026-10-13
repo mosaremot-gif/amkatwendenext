@@ -403,7 +403,7 @@ function SkrManageForm({ params }: PageProps) {
                   Estimated Value (USD)
                 </label>
                 <input
-                  type="number"
+                  type="text"
                   step="0.01"
                   name="estimatedValue"
                   required

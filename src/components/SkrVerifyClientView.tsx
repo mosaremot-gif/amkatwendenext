@@ -308,7 +308,7 @@ export default function SkrVerifyClientView({
                 Estimated Value
               </span>
               <span className="text-emerald-400 font-bold">
-                {data.currency} {Number(data.estimatedValue).toLocaleString()}
+                {data.currency} {data.estimatedValue}
               </span>
             </div>
             <div>
