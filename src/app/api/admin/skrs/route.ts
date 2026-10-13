@@ -21,7 +21,7 @@ interface CreateSkrRequestBody {
   refinery?: string;
   serialNumber: string;
   assayPurity: string;
-  numberOfUnits: string | number;
+  numberOfUnits: string;
   grossWeight: string | number;
   fineWeight: string | number;
   estimatedValue: string | number;
@@ -84,7 +84,7 @@ export async function POST(req: Request) {
         refinery: body.refinery || "N/A",
         serialNumber: body.serialNumber,
         assayPurity: body.assayPurity,
-        numberOfUnits: Number(body.numberOfUnits) || 1,
+        numberOfUnits: body.numberOfUnits || "1",
         grossWeight: Number(body.grossWeight),
         fineWeight: Number(body.fineWeight),
         estimatedValue: Number(body.estimatedValue),

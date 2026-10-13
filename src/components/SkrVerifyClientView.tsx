@@ -30,7 +30,7 @@ interface CertificateData {
   refinery?: string;
   serialNumber: string;
   assayPurity: string;
-  numberOfUnits: number;
+  numberOfUnits: string;
   grossWeight: string;
   fineWeight: string;
   estimatedValue: string;

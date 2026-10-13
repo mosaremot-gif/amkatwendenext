@@ -39,7 +39,7 @@ model SkrCertificate {
   refinery        String?           @default("N/A")                    // e.g., "N/A"
   serialNumber    String            @map("serial_number")              // e.g., "AK-20260929-NBO-010-97P-0002"
   assayPurity     String            @map("assay_purity")               // e.g., "97.2"
-  numberOfUnits   Int               @map("number_of_units")            // e.g., 100
+  numberOfUnits String @default("1") @map("number_of_units")          // e.g., 100
   grossWeight     Decimal           @map("gross_weight") @db.Decimal(12, 3) // e.g., 100000 (g)
   fineWeight      Decimal           @map("fine_weight")  @db.Decimal(12, 3) // e.g., 1000 (g)
   estimatedValue  Decimal           @map("estimated_value") @db.Decimal(15, 2) // e.g., 13351199.99

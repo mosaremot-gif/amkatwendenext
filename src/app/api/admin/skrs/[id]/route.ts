@@ -55,7 +55,7 @@ export async function PUT(req: Request, context: RouteContext) {
         refinery: body.refinery || "N/A",
         serialNumber: body.serialNumber,
         assayPurity: body.assayPurity,
-        numberOfUnits: Number(body.numberOfUnits) || 1,
+        numberOfUnits: body.numberOfUnits || "1",
         grossWeight: Number(body.grossWeight),
         fineWeight: Number(body.fineWeight),
         estimatedValue: Number(body.estimatedValue),
