@@ -37,18 +37,15 @@ interface CreateSkrRequestBody {
   insurancePolicy?: string;
 }
 
-// GET: Fetch all SKR certificates for the dashboard list
 export async function GET() {
   try {
     const certificates = await prisma.skrCertificate.findMany({
       orderBy: { createdAt: "desc" },
     });
-
     return NextResponse.json({ success: true, data: certificates });
   } catch (error: unknown) {
     const errorMessage =
       error instanceof Error ? error.message : "An unknown error occurred";
-
     return NextResponse.json(
       { success: false, error: errorMessage },
       { status: 500 }
@@ -56,18 +53,15 @@ export async function GET() {
   }
 }
 
-// POST: Create a new SKR with Auto-Generator & Resend Dispatch
 export async function POST(req: Request) {
   try {
     const body: CreateSkrRequestBody = await req.json();
 
-    // 1. Auto-generate official unique SKR tracking number
     const year = new Date().getFullYear();
     const count = await prisma.skrCertificate.count();
     const sequenceNum = String(count + 1).padStart(6, "0");
     const certificateNo = `SKR${year}${sequenceNum}`;
 
-    // 2. Save record to Database via Prisma
     const newCertificate = await prisma.skrCertificate.create({
       data: {
         certificateNo,
@@ -87,32 +81,26 @@ export async function POST(req: Request) {
         serialNumber: body.serialNumber,
         assayPurity: body.assayPurity,
         numberOfUnits: Number(body.numberOfUnits) || 1,
-
-        // Convert weights to string to match Prisma schema
         grossWeight: body.grossWeight ? String(body.grossWeight) : "0",
         fineWeight: body.fineWeight ? String(body.fineWeight) : "0",
-
-        estimatedValue: Number(body.estimatedValue),
+        
+        // Converted to String to match Prisma schema fields
+        estimatedValue: body.estimatedValue ? String(body.estimatedValue) : "0",
+        
         priceBasis: body.priceBasis || "LBMA Spot",
         currency: body.currency || "USD",
-
-        // Assigned directly as a valid CertificateStatus enum value
         currentStatus: body.currentStatus || CertificateStatus.HOLD,
-
         origin: body.origin,
         destination: body.destination,
         dispatchDate: body.dispatchDate ? new Date(body.dispatchDate) : null,
         arrivalDate: body.arrivalDate ? new Date(body.arrivalDate) : null,
         transporter: body.transporter || null,
         trackingNo: body.trackingNo || null,
-        insuranceValue: body.insuranceValue
-          ? Number(body.insuranceValue)
-          : null,
+        insuranceValue: body.insuranceValue ? String(body.insuranceValue) : null,
         insurancePolicy: body.insurancePolicy || null,
       },
     });
 
-    // 3. Send Email Dispatch via Resend if clientEmail is provided
     if (newCertificate.clientEmail) {
       const verificationUrl = `${
         process.env.NEXT_PUBLIC_APP_URL || "https://amkatwendelogistics.com"
@@ -147,7 +135,6 @@ export async function POST(req: Request) {
     const errorMessage =
       error instanceof Error ? error.message : "An unknown error occurred";
     console.error("SKR Creation & Email Error:", errorMessage);
-
     return NextResponse.json(
       { success: false, error: errorMessage },
       { status: 500 }

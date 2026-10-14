@@ -6,7 +6,6 @@ interface RouteContext {
   params: Promise<{ id: string }>;
 }
 
-// GET: Fetch single SKR by ID for editing
 export async function GET(req: Request, context: RouteContext) {
   try {
     const { id } = await context.params;
@@ -32,7 +31,6 @@ export async function GET(req: Request, context: RouteContext) {
   }
 }
 
-// PUT: Update existing SKR record
 export async function PUT(req: Request, context: RouteContext) {
   try {
     const { id } = await context.params;
@@ -53,9 +51,12 @@ export async function PUT(req: Request, context: RouteContext) {
         serialNumber: body.serialNumber,
         assayPurity: body.assayPurity,
         numberOfUnits: Number(body.numberOfUnits) || 1,
-        grossWeight: body.grossWeight ? body.grossWeight.toString() : "0",
-        fineWeight: body.fineWeight ? body.fineWeight.toString() : "0",
-        estimatedValue: Number(body.estimatedValue),
+        grossWeight: body.grossWeight ? String(body.grossWeight) : "0",
+        fineWeight: body.fineWeight ? String(body.fineWeight) : "0",
+        
+        // String conversion for database schema compatibility
+        estimatedValue: body.estimatedValue ? String(body.estimatedValue) : "0",
+        
         priceBasis: body.priceBasis || "LBMA Spot",
         currency: body.currency || "USD",
         currentStatus: body.currentStatus || CertificateStatus.HOLD,
@@ -65,9 +66,7 @@ export async function PUT(req: Request, context: RouteContext) {
         arrivalDate: body.arrivalDate ? new Date(body.arrivalDate) : null,
         transporter: body.transporter || null,
         trackingNo: body.trackingNo || null,
-        insuranceValue: body.insuranceValue
-          ? Number(body.insuranceValue)
-          : null,
+        insuranceValue: body.insuranceValue ? String(body.insuranceValue) : null,
         insurancePolicy: body.insurancePolicy || null,
       },
     });
