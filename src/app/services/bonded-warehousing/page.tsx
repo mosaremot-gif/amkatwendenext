@@ -34,7 +34,7 @@ export default function BondedWarehousingPage() {
         <div className="relative rounded-3xl overflow-hidden border border-slate-800 mb-8 shadow-2xl bg-slate-900">
           <div className="h-80 sm:h-96 w-full relative overflow-hidden">
             <img
-              src="https://images.unsplash.com/photo-1586528116311-ad8dd3c8310d?auto=format&fit=crop&q=80&w=1200"
+              src="\warehousing.jpg"
               alt="Bonded Warehousing"
               className="w-full h-full object-cover object-center"
             />
@@ -99,6 +99,10 @@ export default function BondedWarehousingPage() {
                 <li className="flex items-start gap-3.5 text-slate-300 text-sm sm:text-base">
                   <span className="w-2 h-2 rounded-full bg-[#F07C33] mt-2 shrink-0" />
                   <span>Customs-bonded duty deferment storage space</span>
+                </li>
+                  <li className="flex items-start gap-3.5 text-slate-300 text-sm sm:text-base">
+                  <span className="w-2 h-2 rounded-full bg-[#F07C33] mt-2 shrink-0" />
+                  <span>Safekeeping</span>
                 </li>
                 <li className="flex items-start gap-3.5 text-slate-300 text-sm sm:text-base">
                   <span className="w-2 h-2 rounded-full bg-[#F07C33] mt-2 shrink-0" />

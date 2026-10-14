@@ -25,16 +25,16 @@ export const coreServices = [
   {
     slug: "air-freight",
     icon: Plane,
-    title: "Air Freight Services",
+    title: "Air Shipping",
     description:
       "High-priority air cargo solutions engineered for speed, time-critical shipments, and direct airline handling through JKIA Nairobi.",
     image:
-      "https://images.unsplash.com/photo-1578575437130-527eed3abbec?auto=format&fit=crop&q=80&w=800",
+      "\air.jpg",
   },
   {
     slug: "ocean-freight",
     icon: Ship,
-    title: "Ocean & Sea Freight",
+    title: "Ocean Freight",
     description:
       "Cost-effective global containerized shipping (FCL/LCL), consolidated sea cargo, and port operations via Mombasa Port.",
     image:
@@ -43,7 +43,7 @@ export const coreServices = [
   {
     slug: "road-transport",
     icon: Truck,
-    title: "Regional Road Transport",
+    title: "Road Transportation",
     description:
       "Reliable fleet solutions and last-mile distribution ensuring secure delivery across Kenya and the East Africa region.",
     image:
@@ -52,11 +52,11 @@ export const coreServices = [
   {
     slug: "bonded-warehousing",
     icon: Warehouse,
-    title: "Bonded Warehousing",
+    title: "Warehouse keeping",
     description:
       "Secure, organized storage facilities designed to protect your goods and streamline your inventory workflow.",
     image:
-      "https://images.unsplash.com/photo-1586528116311-ad8dd3c8310d?auto=format&fit=crop&q=80&w=800",
+      "\warehousing.jpg",
   },
 ];
 

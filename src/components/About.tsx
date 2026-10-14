@@ -54,7 +54,7 @@ export const About: React.FC = () => {
         {/* Section introduction */}
         <div className="mx-auto max-w-4xl text-center">
           <div className="inline-flex items-center gap-2.5 rounded-full border border-orange-100 bg-orange-50/80 px-4 py-2">
-            <span className="h-2 w-2 rounded-full bg-[#F07C33]" />
+            <span className="h-2 w-2 rounded-full bg-[#f58043]" />
             <span className="text-[11px] font-bold uppercase tracking-[0.17em] text-[#C85C1F]">
               Amka Twende Logistics
             </span>
@@ -63,7 +63,7 @@ export const About: React.FC = () => {
           <h2 className="mt-7 text-center text-4xl font-semibold leading-[1.1] tracking-[-0.045em] text-[#1C4E9E] sm:text-5xl lg:text-[68px]">
             Moving business.
             <br />
-            <span className="text-[#F07C33]">Beyond borders.</span>
+            <span className="text-[#f58043]">Beyond borders.</span>
           </h2>
 
           <p className="mx-auto mt-6 max-w-2xl text-center text-base leading-7 text-slate-500 sm:text-lg sm:leading-8">
@@ -87,7 +87,7 @@ export const About: React.FC = () => {
               <div className="absolute inset-0 bg-gradient-to-t from-slate-950/75 via-transparent to-transparent" />
 
               <div className="absolute left-5 top-5 flex items-center gap-2 rounded-lg border border-white/30 bg-white/95 px-3.5 py-2.5 shadow-sm sm:left-7 sm:top-7">
-                <MapPin className="h-4 w-4 text-[#F07C33]" />
+                <MapPin className="h-4 w-4 text-[#f58043]" />
                 <span className="text-xs font-semibold text-slate-800">
                   JKIA, Nairobi, Kenya
                 </span>
@@ -109,7 +109,7 @@ export const About: React.FC = () => {
             {/* Small orange signature detail */}
             <div
               aria-hidden="true"
-              className="absolute -bottom-2 -right-2 -z-10 h-24 w-24 rounded-2xl bg-[#F07C33] sm:-bottom-3 sm:-right-3 sm:h-32 sm:w-32"
+              className="absolute -bottom-2 -right-2 -z-10 h-24 w-24 rounded-2xl bg-[#f58043] sm:-bottom-3 sm:-right-3 sm:h-32 sm:w-32"
             />
           </div>
 
@@ -152,7 +152,7 @@ export const About: React.FC = () => {
               href="https://wa.me/254735941780"
               target="_blank"
               rel="noopener noreferrer"
-              className="group mt-8 inline-flex min-h-12 items-center justify-center gap-3 rounded-lg bg-[#F07C33] px-6 py-3.5 text-sm font-semibold text-white shadow-lg shadow-orange-500/15 transition-all duration-300 hover:-translate-y-0.5 hover:bg-[#D96825]"
+              className="group mt-8 inline-flex min-h-12 items-center justify-center gap-3 rounded-lg bg-[#f4772b] px-6 py-3.5 text-sm font-semibold text-white shadow-lg shadow-orange-500/15 transition-all duration-300 hover:-translate-y-0.5 hover:bg-[#D96825]"
             >
               Discuss your shipment
               <ArrowUpRight className="h-4 w-4 transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
@@ -256,10 +256,10 @@ export const About: React.FC = () => {
                     <span className="text-xs font-semibold text-[#1C4E9E]">
                       Explore service
                     </span>
-                    <ArrowRight className="h-4 w-4 text-[#F07C33] transition-transform duration-300 group-hover:translate-x-1" />
+                    <ArrowRight className="h-4 w-4 text-[#f58043] transition-transform duration-300 group-hover:translate-x-1" />
                   </div>
 
-                  <div className="absolute inset-x-0 bottom-0 h-[3px] origin-left scale-x-0 bg-[#F07C33] transition-transform duration-300 group-hover:scale-x-100" />
+                  <div className="absolute inset-x-0 bottom-0 h-[3px] origin-left scale-x-0 bg-[#f58043] transition-transform duration-300 group-hover:scale-x-100" />
                 </article>
               );
             })}

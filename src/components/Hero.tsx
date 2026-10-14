@@ -125,10 +125,10 @@ export const Hero: React.FC = () => {
           {/* Compact actions on mobile; original sizing on desktop */}
           <div className="mt-6 grid w-full max-w-sm grid-cols-2 gap-2.5 sm:mt-10 sm:flex sm:w-auto sm:max-w-none sm:justify-center sm:gap-4">
             <a
-              href="mailto:amkatwendelogistics1@gmail.com?subject=Inquiry%20%2F%20Quote%20Request"
+              href="https://wa.me/254735941780"
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex min-h-10 items-center justify-center gap-1.5 rounded-lg bg-[#F07C33] px-3 py-2 text-xs font-semibold text-white transition-colors duration-300 hover:bg-[#dc6825] sm:min-h-14 sm:gap-3 sm:px-8 sm:py-4 sm:text-base"
+              className="inline-flex min-h-10 items-center justify-center gap-1.5 rounded-lg bg-[#f4772b] px-3 py-2 text-xs font-semibold text-white transition-colors duration-300 hover:bg-[#dc6825] sm:min-h-14 sm:gap-3 sm:px-8 sm:py-4 sm:text-base"
             >
               Get a Quote
               <ArrowRight className="h-3.5 w-3.5 sm:h-5 sm:w-5" />

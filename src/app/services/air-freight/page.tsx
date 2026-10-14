@@ -34,7 +34,7 @@ export default function AirFreightPage() {
         <div className="relative rounded-3xl overflow-hidden border border-slate-800 mb-8 shadow-2xl bg-slate-900">
           <div className="h-80 sm:h-96 w-full relative overflow-hidden">
            <img
-  src="\chris-leipelt-eSTpS33I390-unsplash.jpg"
+  src="\air.jpg"
   alt="Air Freight Cargo Loading"
   className="w-full h-full object-cover object-center"
 />

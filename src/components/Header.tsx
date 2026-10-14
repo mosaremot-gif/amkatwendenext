@@ -164,7 +164,7 @@ export const Header: React.FC = () => {
           </div>
 
           <a
-            href="mailto:amkatwendelogistics1@gmail.com?subject=Inquiry%20%2F%20Quote%20Request"
+            href="https://api.whatsapp.com/send/?phone=254735941780&text&type=phone_number&app_absent="
             target="_blank"
             rel="noopener noreferrer"
             className="mt-2 flex items-center justify-center gap-2 bg-[#F07C33] text-white font-semibold py-3 rounded-xl shadow-md"
