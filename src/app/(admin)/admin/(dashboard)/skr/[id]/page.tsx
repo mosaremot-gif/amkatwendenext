@@ -292,7 +292,7 @@ function SkrManageForm({ params }: PageProps) {
             <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
               <div>
                 <label className="block text-xs font-medium text-slate-400 uppercase mb-2">
-                  Metal Type
+                  Metal
                 </label>
                 <input
                   type="text"

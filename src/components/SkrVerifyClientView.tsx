@@ -274,7 +274,7 @@ export default function SkrVerifyClientView({
           <div className="grid grid-cols-2 md:grid-cols-3 gap-4 text-xs">
             <div>
               <span className="text-slate-500 block uppercase font-semibold mb-1">
-                Metal Type
+                Metal
               </span>
               <span className="text-white font-bold">{data.metalType}</span>
             </div>
