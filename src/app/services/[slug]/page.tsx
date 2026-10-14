@@ -1,3 +1,176 @@
+import React from "react";
+import Link from "next/link";
+import { notFound } from "next/navigation";
+import { Header } from "@/components/Header";
+import { Footer } from "@/components/Footer";
+import {
+  ArrowLeft,
+  Mail,
+  Phone,
+  CheckCircle2,
+  Clock,
+  ShieldCheck,
+  Globe2,
+  FileCheck,
+  Plane,
+  Ship,
+  Truck,
+  Warehouse,
+} from "lucide-react";
+
+// Database of all service details
+const servicesData: Record<
+  string,
+  {
+    title: string;
+    tagline: string;
+    image: string;
+    icon: React.ElementType;
+    stats: { value: string; label: string }[];
+    overview: string;
+    capabilities: string[];
+    processSteps: { title: string; desc: string }[];
+    guarantees: string[];
+  }
+> = {
+  "customs-clearing": {
+    title: "Customs Clearing & Forwarding",
+    tagline: "Accelerated, zero-delay customs processing across Kenya & East Africa",
+    image: "https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?auto=format&fit=crop&q=80&w=1200",
+    icon: FileCheck,
+    stats: [
+      { value: "24-48 Hrs", label: "Avg. Clearance" },
+      { value: "100%", label: "Compliance Rate" },
+      { value: "12+", label: "Border Posts Covered" },
+    ],
+    overview:
+      "Our licensed customs brokerage team operates directly at JKIA Nairobi, Mombasa Port, and major border posts (Namanga, Busia, Malaba). We manage full documentation clearance, tariff classification, tax assessments, and specialized agency approvals (KEBS, Pharmacy Board, KDB) to ensure compliance and rapid cargo release.",
+    capabilities: [
+      "Exact KRA HS Code classification and valuation assessments",
+      "Priority express entry processing at JKIA air cargo terminals",
+      "Specialized import/export permits (KEBS, Radiation, Agriculture)",
+      "Bonded transit documentation across East African Community (EAC)",
+    ],
+    processSteps: [
+      { title: "Document Verification", desc: "Reviewing bill of lading, commercial invoices, and packing lists." },
+      { title: "KRA Lodgement", desc: "Declaring entries into SIMBA/iCMS system for tax assessment." },
+    ],
+    guarantees: [
+      "Zero demurrage penalty support",
+      "Transparent KRA duty calculations",
+      "Direct licensed customs broker representation",
+    ],
+  },
+  "air-freight": {
+    title: "Air Freight Services",
+    tagline: "High-priority air cargo solutions engineered for speed, time-critical shipments, and direct airline handling through JKIA Nairobi.",
+    image: "https://images.unsplash.com/photo-1540959733332-eab4deabeeaf?auto=format&fit=crop&q=80&w=1200",
+    icon: Plane,
+    stats: [
+      { value: "24-48 Hrs", label: "Transit Window" },
+      { value: "JKIA Hub", label: "Direct Express Entry" },
+      { value: "100%", label: "Temperature Controlled" },
+    ],
+    overview:
+      "Operating out of Jomo Kenyatta International Airport (JKIA), we manage priority air express handling, charter services, and temperature-controlled cold chain shipments to keep your supply chain moving globally.",
+    capabilities: [
+      "Express air charter and direct airline booking options",
+      "Temperature-controlled cold chain handling for perishables & pharma",
+      "Direct tarmac cargo transfer and immediate clearance at JKIA",
+    ],
+    processSteps: [
+      { title: "Flight Booking & Manifest", desc: "Securing priority air cargo space and generating airway bill." },
+      { title: "Tarmac & Terminal Handling", desc: "Rapid unloading and transfer into bonded airport facility." },
+    ],
+    guarantees: [
+      "Guaranteed airline space allocation",
+      "Priority airport ground handling",
+      "Real-time status tracking updates",
+    ],
+  },
+  "ocean-freight": {
+    title: "Ocean & Sea Freight",
+    tagline: "Cost-effective global containerized shipping (FCL/LCL), consolidated sea cargo, and port operations via Mombasa Port.",
+    image: "https://images.unsplash.com/photo-1518241353330-0f7941c2d9b5?auto=format&fit=crop&q=80&w=1200",
+    icon: Ship,
+    stats: [
+      { value: "350+", label: "Global Ports" },
+      { value: "Priority", label: "Mombasa Terminal" },
+      { value: "Up to 30%", label: "Cost Savings" },
+    ],
+    overview:
+      "Connecting East Africa to global shipping channels across Asia, Europe, and the Americas. We provide cost-effective maritime freight options for containerized, bulk, and project cargo using trusted ocean carrier routes into the Port of Mombasa.",
+    capabilities: [
+      "Full Container Load (FCL) & Less than Container Load (LCL) groupage",
+      "Port of Mombasa terminal handling and container yard operations",
+      "Out-of-Gauge (OOG) and breakbulk heavy machinery transport",
+    ],
+    processSteps: [
+      { title: "Container Allocation", desc: "Selecting standard, reefer, or open-top equipment." },
+      { title: "Port Loading", desc: "Managing vessel loading and bill of lading issuance." },
+    ],
+    guarantees: [
+      "Competitive container line tariffs",
+      "Secure port container yard handling",
+      "Comprehensive maritime cargo insurance options",
+    ],
+  },
+  "road-transport": {
+    title: "Regional Road Transport",
+    tagline: "Reliable fleet haulage across Kenya, Uganda, Rwanda, South Sudan & DRC",
+    image: "https://images.unsplash.com/photo-1601584115197-04ecc0da31d7?auto=format&fit=crop&q=80&w=1200",
+    icon: Truck,
+    stats: [
+      { value: "East Africa", label: "Full Coverage" },
+      { value: "99.9%", label: "Safety Rating" },
+      { value: "Real-time", label: "GPS Telematics" },
+    ],
+    overview:
+      "Our regional trucking network spans the Northern Corridor, bridging Mombasa and Nairobi directly into East Africa’s inland hubs. Equipped with real-time GPS tracking and dedicated drivers, we guarantee safe haulage for standard, containerized, and oversized loads.",
+    capabilities: [
+      "Flatbed, lowbed, refrigerated, and closed box truck options",
+      "Cross-border transit documentation and customs escort coordination",
+      "Real-time GPS telematics with speed and route monitoring",
+    ],
+    processSteps: [
+      { title: "Vehicle Dispatch", desc: "Assigning suitable truck type and driver to cargo load." },
+      { title: "Cargo Lashing", desc: "Securing cargo according to safety transport standards." },
+    ],
+    guarantees: [
+      "Live GPS tracking access",
+      "Trained cross-border drivers",
+      "Full transit cargo safety coverage",
+    ],
+  },
+  "bonded-warehousing": {
+    title: "Bonded Warehousing",
+    tagline: "Secure, duty-deferred storage facilities designed for inventory efficiency",
+    image: "https://images.unsplash.com/photo-1586528116311-ad8dd3c8310d?auto=format&fit=crop&q=80&w=1200",
+    icon: Warehouse,
+    stats: [
+      { value: "24/7", label: "Security Monitoring" },
+      { value: "50,000+", label: "Sq Ft Capacity" },
+      { value: "12 Months", label: "Duty Deferment" },
+    ],
+    overview:
+      "Optimize cash flow by deferring customs duty payments until your goods are ready for domestic distribution. Our secure, climate-monitored bonded warehouses provide professional inventory management, re-packaging, and order fulfillment capabilities.",
+    capabilities: [
+      "Customs-bonded duty deferment storage space",
+      "WMS-powered inventory tracking with real-time stock balances",
+      "Order pick-and-pack, sorting, and palletizing services",
+    ],
+    processSteps: [
+      { title: "Inbound Receiving", desc: "Customs tallying and barcode scanning upon arrival." },
+      { title: "System Placement", desc: "Storing in designated rack/shelf zones." },
+    ],
+    guarantees: [
+      "Strict customs compliance storage",
+      "24/7 CCTV surveillance and security guards",
+      "Accurate WMS inventory reporting",
+    ],
+  },
+};
+
 interface ServicePageProps {
   params: Promise<{ slug: string }>;
 }
@@ -6,14 +179,9 @@ export default async function ServiceDetailPage({ params }: ServicePageProps) {
   const resolvedParams = await params;
   const slug = resolvedParams?.slug;
 
-  // --- DEBUG LOG ---
-  console.log("--> Requested Slug:", slug);
-  console.log("--> Available Keys in Database:", Object.keys(servicesData));
-
   const service = servicesData[slug];
 
   if (!service) {
-    console.log("--> Slug not found in database! Triggering 404.");
     notFound();
   }
 
