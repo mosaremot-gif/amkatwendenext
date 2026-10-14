@@ -175,6 +175,12 @@ interface ServicePageProps {
   params: Promise<{ slug: string }>;
 }
 
+export async function generateStaticParams() {
+  return Object.keys(servicesData).map((slug) => ({
+    slug,
+  }));
+}
+
 export default async function ServiceDetailPage({ params }: ServicePageProps) {
   const resolvedParams = await params;
   const slug = resolvedParams?.slug;

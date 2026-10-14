@@ -17,7 +17,7 @@ export async function GET(req: Request, context: RouteContext) {
     if (!certificate) {
       return NextResponse.json(
         { success: false, error: "Certificate not found" },
-        { status: 404 },
+        { status: 404 }
       );
     }
 
@@ -27,7 +27,7 @@ export async function GET(req: Request, context: RouteContext) {
       error instanceof Error ? error.message : "An unknown error occurred";
     return NextResponse.json(
       { success: false, error: errorMessage },
-      { status: 500 },
+      { status: 500 }
     );
   }
 }
@@ -53,12 +53,12 @@ export async function PUT(req: Request, context: RouteContext) {
         serialNumber: body.serialNumber,
         assayPurity: body.assayPurity,
         numberOfUnits: Number(body.numberOfUnits) || 1,
-        grossWeight: Number(body.grossWeight),
-        fineWeight: Number(body.fineWeight),
+        grossWeight: body.grossWeight ? body.grossWeight.toString() : "0",
+        fineWeight: body.fineWeight ? body.fineWeight.toString() : "0",
         estimatedValue: Number(body.estimatedValue),
         priceBasis: body.priceBasis || "LBMA Spot",
         currency: body.currency || "USD",
-        currentStatus: body.currentStatus || CertificateStatus.STORED,
+        currentStatus: body.currentStatus || CertificateStatus.HOLD,
         origin: body.origin,
         destination: body.destination,
         dispatchDate: body.dispatchDate ? new Date(body.dispatchDate) : null,
@@ -79,7 +79,7 @@ export async function PUT(req: Request, context: RouteContext) {
     console.error("SKR Update Error:", errorMessage);
     return NextResponse.json(
       { success: false, error: errorMessage },
-      { status: 500 },
+      { status: 500 }
     );
   }
 }

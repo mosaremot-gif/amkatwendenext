@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState, use } from "react";
+import { useEffect, useState, use, Suspense } from "react";
 import Link from "next/link";
 import { QRCodeSVG } from "qrcode.react";
 import {
@@ -14,7 +14,6 @@ import {
   Building2,
   Package,
   Plane,
- 
 } from "lucide-react";
 
 interface CertificateData {
@@ -52,7 +51,7 @@ interface PageProps {
   params: Promise<{ certificateNo: string }>;
 }
 
-export default function SkrPublicVerifyPage({ params }: PageProps) {
+function CertificateVerifyContent({ params }: PageProps) {
   const { certificateNo } = use(params);
   const [data, setData] = useState<CertificateData | null>(null);
   const [loading, setLoading] = useState(true);
@@ -329,7 +328,7 @@ export default function SkrPublicVerifyPage({ params }: PageProps) {
               </span>
               <span
                 className={`inline-block px-2.5 py-0.5 rounded-full border text-[11px] font-bold ${getStatusBadge(
-                  data.currentStatus,
+                  data.currentStatus
                 )}`}
               >
                 {data.currentStatus}
@@ -407,5 +406,22 @@ export default function SkrPublicVerifyPage({ params }: PageProps) {
         </div>
       </div>
     </div>
+  );
+}
+
+export default function SkrPublicVerifyPage({ params }: PageProps) {
+  return (
+    <Suspense
+      fallback={
+        <div className="min-h-screen bg-[#0B0F19] text-slate-100 flex flex-col items-center justify-center p-6">
+          <Loader2 className="w-10 h-10 animate-spin text-blue-500 mb-4" />
+          <p className="text-slate-400 text-sm font-medium">
+            Loading verification page...
+          </p>
+        </div>
+      }
+    >
+      <CertificateVerifyContent params={params} />
+    </Suspense>
   );
 }
