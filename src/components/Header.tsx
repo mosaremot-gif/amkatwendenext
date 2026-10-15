@@ -31,60 +31,65 @@ export const Header: React.FC = () => {
   }, [lastScrollY]);
 
   return (
-    <header
-      className={`fixed top-0 left-0 right-0 z-50 bg-white/95 backdrop-blur-md shadow-sm border-b border-slate-100 transition-transform duration-300 ease-in-out ${
-        isVisible ? "translate-y-0" : "-translate-y-full"
-      }`}
+    <motion.header
+      initial={{ y: -100 }}
+      animate={{ y: isVisible ? 0 : -100 }}
+      transition={{ duration: 0.3, ease: "easeInOut" }}
+      className="fixed top-0 left-0 right-0 z-50 bg-white/90 backdrop-blur-xl shadow-lg shadow-blue-500/5 border-b border-blue-100/80"
     >
+      {/* Top Vibrant Glow Accent Line */}
+      <div className="h-1 bg-gradient-to-r from-[#1C4E9E] via-cyan-500 to-[#F07C33]" />
+
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between">
         {/* Brand Logo & Name */}
-        <a href="#home" className="flex items-center gap-3 group">
-          <div className="w-11 h-11 rounded-xl bg-[#1C4E9E] flex items-center justify-center shadow-md group-hover:bg-[#F07C33] transition-colors duration-300 p-2">
-            <Image
-              src="/favicon.svg"
-              alt="Amka Twende Logo"
-              width={28}
-              height={28}
-              className="w-7 h-7 object-contain"
-            />
-          </div>
-          <div>
-            <span className="block font-extrabold text-lg text-[#1C4E9E] tracking-tight leading-tight">
-              AMKA TWENDE
-            </span>
-            <span className="block text-xs font-bold text-[#F07C33] tracking-wider uppercase">
-              Clearing and forwarding
-            </span>
-          </div>
-        </a>
+        <motion.div whileHover={{ scale: 1.02 }} whileTap={{ scale: 0.98 }}>
+          <Link href="/#home" className="flex items-center gap-3 group">
+            <div className="relative w-12 h-12 rounded-2xl bg-gradient-to-br bg-white flex items-center justify-center shadow-lg shadow-blue-600/30 group-hover:shadow-[#F07C33]/40 group-hover:from-[#F07C33] group-hover:to-amber-500 transition-all duration-500 p-2.5">
+              <div className="absolute inset-0 rounded-2xl bg-white/20 opacity-0 group-hover:opacity-100 transition-opacity" />
+              <Image
+                src="/favicon.svg"
+                alt="Amka Twende Logo"
+                width={30}
+                height={30}
+                className="w-7 h-7 object-contain drop-shadow"
+                priority
+              />
+            </div>
+            <div>
+              <span className="block font-black text-lg bg-gradient-to-r from-[#1C4E9E] to-blue-700 bg-clip-text text-transparent tracking-tight leading-tight">
+                AMKA TWENDE
+              </span>
+              <span className="block text-xs font-bold text-[#F07C33] tracking-widest uppercase flex items-center gap-1">
+                <Sparkles className="w-3 h-3 text-amber-500 animate-pulse" />
+                Logistics & Cargo
+              </span>
+            </div>
+          </Link>
+        </motion.div>
 
-        {/* Desktop Navigation Links  */}
-        <nav className="hidden md:flex items-center gap-8 font-medium text-slate-700">
-          <a href="#home" className="hover:text-[#1C4E9E] transition-colors">
-            Home
-          </a>
-          <a href="#about" className="hover:text-[#1C4E9E] transition-colors">
-            About Us
-          </a>
-          <a
-            href="#services"
-            className="hover:text-[#1C4E9E] transition-colors"
-          >
-            Services
-          </a>
-          <a
-            onClick={() => setIsOpen(false)}
-            href="#track"
-            className="text-lg font-medium text-slate-800 hover:text-[#1C4E9E]"
-          >
-            Track SKR
-          </a>
-          <a href="#contact" className="hover:text-[#1C4E9E] transition-colors">
-            Contact Us
-          </a>
-          {/* Desktop Clerk Auth */}
-          <div className="hidden md:flex items-center gap-4">
-            <a
+        {/* Desktop Navigation Links with Next.js Link & Hash Routing */}
+        <nav className="hidden md:flex items-center gap-8 font-semibold text-slate-700">
+          {[
+            { name: "Home", href: "/#home" },
+            { name: "About Us", href: "/#about" },
+            { name: "Services", href: "/#services" },
+            { name: "Track SKR", href: "/#track" },
+            { name: "Contact Us", href: "/#contact" },
+          ].map((link) => (
+            <motion.div key={link.name} whileHover={{ y: -1 }}>
+              <Link
+                href={link.href}
+                className="relative py-1 text-slate-700 hover:text-[#1C4E9E] transition-colors group inline-block"
+              >
+                {link.name}
+                <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-gradient-to-r from-[#1C4E9E] to-[#F07C33] group-hover:w-full transition-all duration-300 rounded-full" />
+              </Link>
+            </motion.div>
+          ))}
+
+          {/* Desktop Auth & Actions */}
+          <div className="flex items-center gap-4 pl-4 border-l border-slate-200">
+            <motion.a
               href="mailto:amkatwendelogistics1@gmail.com?subject=Inquiry%20%2F%20Quote%20Request"
               target="_blank"
               rel="noopener noreferrer"
@@ -128,71 +133,68 @@ export const Header: React.FC = () => {
         </motion.button>
       </div>
 
-      {/* Mobile Menu Dropdown */}
-      {isOpen && (
-        <div className="md:hidden absolute top-20 left-0 w-full bg-white border-b border-slate-200 shadow-xl py-6 px-6 flex flex-col gap-4 animate-fadeIn">
-          <a
-            onClick={() => setIsOpen(false)}
-            href="#home"
-            className="text-lg font-medium text-slate-800 hover:text-[#1C4E9E]"
+      {/* Mobile Menu Dropdown with Framer Motion & Next.js Links */}
+      <AnimatePresence>
+        {isOpen && (
+          <motion.div
+            initial={{ opacity: 0, height: 0, y: -20 }}
+            animate={{ opacity: 1, height: "auto", y: 0 }}
+            exit={{ opacity: 0, height: 0, y: -20 }}
+            transition={{ duration: 0.3, ease: "easeInOut" }}
+            className="md:hidden absolute top-21 left-0 w-full bg-white/95 backdrop-blur-2xl border-b border-blue-100 shadow-2xl py-6 px-6 flex flex-col gap-4 overflow-hidden"
           >
-            Home
-          </a>
-          <a
-            onClick={() => setIsOpen(false)}
-            href="#about"
-            className="text-lg font-medium text-slate-800 hover:text-[#1C4E9E]"
-          >
-            About Us
-          </a>
-          <a
-            onClick={() => setIsOpen(false)}
-            href="#services"
-            className="text-lg font-medium text-slate-800 hover:text-[#1C4E9E]"
-          >
-            Services
-          </a>
-          <a
-            onClick={() => setIsOpen(false)}
-            href="#track"
-            className="text-lg font-medium text-slate-800 hover:text-[#1C4E9E]"
-          >
-            Track SKR
-          </a>
-          <a
-            onClick={() => setIsOpen(false)}
-            href="#contact"
-            className="text-lg font-medium text-slate-800 hover:text-[#1C4E9E]"
-          >
-            Contact Us
-          </a>
-          <div className="pt-4 border-t border-slate-100 flex items-center justify-between">
-            <span className="text-sm font-medium text-slate-500">
-              Staff Access
-            </span>
-            <Show when="signed-out">
-              <SignInButton mode="modal">
-                <button className="text-sm font-semibold text-[#1C4E9E] bg-blue-50 px-4 py-2 rounded-lg">
-                  Staff Login
-                </button>
-              </SignInButton>
-            </Show>
-            <Show when="signed-in">
-              <UserButton />
-            </Show>
-          </div>
+            {[
+              { name: "Home", href: "/#home" },
+              { name: "About Us", href: "/#about" },
+              { name: "Services", href: "/#services" },
+              { name: "Track SKR", href: "/#track" },
+              { name: "Contact Us", href: "/#contact" },
+            ].map((link) => (
+              <motion.div
+                key={link.name}
+                whileTap={{ scale: 0.98, x: 4 }}
+                onClick={() => setIsOpen(false)}
+              >
+                <Link
+                  href={link.href}
+                  className="text-lg font-bold text-slate-800 hover:text-[#1C4E9E] flex items-center justify-between py-2 border-b border-slate-100"
+                >
+                  <span>{link.name}</span>
+                  <ArrowRight className="w-4 h-4 text-[#F07C33]" />
+                </Link>
+              </motion.div>
+            ))}
 
-          <a
-            href="mailto:amkatwendelogistics1@gmail.com?subject=Inquiry%20%2F%20Quote%20Request"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="mt-2 flex items-center justify-center gap-2 bg-[#F07C33] text-white font-semibold py-3 rounded-xl shadow-md"
-          >
-            <Mail className="w-4 h-4" />
-            <span>Get a Quote on Email</span>
-          </a>
-        </div>
-      )}
-    </header>
+            <div className="pt-2 flex items-center justify-between">
+              <span className="text-sm font-bold text-slate-500">
+                Staff Access
+              </span>
+              <Show when="signed-out">
+                <SignInButton mode="modal">
+                  <button className="text-sm font-bold text-[#1C4E9E] bg-blue-100/70 hover:bg-blue-200 px-4 py-2 rounded-xl transition-colors">
+                    Staff Login
+                  </button>
+                </SignInButton>
+              </Show>
+              <Show when="signed-in">
+                <UserButton />
+              </Show>
+            </div>
+
+            <motion.a
+              whileTap={{ scale: 0.97 }}
+              href="mailto:amkatwendelogistics1@gmail.com?subject=Inquiry%20%2F%20Quote%20Request"
+              target="_blank"
+              rel="noopener noreferrer"
+              onClick={() => setIsOpen(false)}
+              className="mt-2 flex items-center justify-center gap-2 bg-gradient-to-r from-[#F07C33] to-amber-500 text-white font-bold py-3.5 rounded-xl shadow-lg shadow-orange-500/30 text-base"
+            >
+              <Mail className="w-5 h-5 text-white" />
+              <span>Get a Quote on Email</span>
+            </motion.a>
+          </motion.div>
+        )}
+      </AnimatePresence>
+    </motion.header>
   );
 };

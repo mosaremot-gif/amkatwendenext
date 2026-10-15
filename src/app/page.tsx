@@ -12,12 +12,12 @@ import { VerifySkr } from "@/components/VerifySkr";
 
 export default function Home() {
   return (
-    <div className="min-h-screen bg-white font-sans text-slate-900 selection:bg-[#1C4E9E] selection:text-white">
+    <div className="min-h-screen overflow-x-clip bg-white font-sans text-slate-900 selection:bg-[#1C4E9E] selection:text-white">
       {/* Navigation Bar */}
       <Header />
 
       {/* Main Content Sections */}
-      <main className="flex flex-col w-full">
+      <main className="flex w-full min-w-0 flex-col">
         <section id="home">
           <Hero />
         </section>
