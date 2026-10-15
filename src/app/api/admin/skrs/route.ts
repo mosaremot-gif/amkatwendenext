@@ -1,6 +1,5 @@
 import { NextResponse } from "next/server";
 import { prisma } from "@/lib/prisma";
-import crypto from "crypto";
 import { CertificateStatus } from "@prisma/client";
 import { Resend } from "resend";
 
@@ -21,10 +20,10 @@ interface CreateSkrRequestBody {
   refinery?: string;
   serialNumber: string;
   assayPurity: string;
-  numberOfUnits: string;
+  numberOfUnits: string | number;
   grossWeight: string | number;
   fineWeight: string | number;
-  estimatedValue: string;
+  estimatedValue: string | number;
   priceBasis?: string;
   currency?: string;
   currentStatus?: CertificateStatus;
@@ -33,42 +32,36 @@ interface CreateSkrRequestBody {
   dispatchDate?: string;
   arrivalDate?: string;
   transporter?: string;
+  trackingNo?: string;
   insuranceValue?: string | number;
+  insurancePolicy?: string;
 }
 
-// GET: Fetch all SKR certificates for the dashboard list
 export async function GET() {
   try {
     const certificates = await prisma.skrCertificate.findMany({
       orderBy: { createdAt: "desc" },
     });
-
     return NextResponse.json({ success: true, data: certificates });
   } catch (error: unknown) {
     const errorMessage =
       error instanceof Error ? error.message : "An unknown error occurred";
-
-    // Log the exact database error to terminal / Vercel logs
-    console.error("GET /api/admin/skrs Error:", error);
-
     return NextResponse.json(
       { success: false, error: errorMessage },
-      { status: 500 },
+      { status: 500 }
     );
   }
 }
 
-// POST: Create a new SKR with Auto-Generator & Resend Dispatch
 export async function POST(req: Request) {
   try {
     const body: CreateSkrRequestBody = await req.json();
 
-    // 1. Auto-generate official unique SKR tracking number
     const year = new Date().getFullYear();
-    const randomHex = crypto.randomBytes(4).toString("hex").toUpperCase();
-    const certificateNo = `SKR${year}-${randomHex}`;
+    const count = await prisma.skrCertificate.count();
+    const sequenceNum = String(count + 1).padStart(6, "0");
+    const certificateNo = `SKR${year}${sequenceNum}`;
 
-    // 2. Save record to Neon Database via Prisma
     const newCertificate = await prisma.skrCertificate.create({
       data: {
         certificateNo,
@@ -87,10 +80,13 @@ export async function POST(req: Request) {
         refinery: body.refinery || "N/A",
         serialNumber: body.serialNumber,
         assayPurity: body.assayPurity,
-        numberOfUnits: body.numberOfUnits || "1",
-        grossWeight: Number(body.grossWeight),
-        fineWeight: Number(body.fineWeight),
-        estimatedValue: body.estimatedValue?.trim() || "0.00",
+        numberOfUnits: Number(body.numberOfUnits) || 1,
+        grossWeight: body.grossWeight ? String(body.grossWeight) : "0",
+        fineWeight: body.fineWeight ? String(body.fineWeight) : "0",
+        
+        // Converted to String to match Prisma schema fields
+        estimatedValue: body.estimatedValue ? String(body.estimatedValue) : "0",
+        
         priceBasis: body.priceBasis || "LBMA Spot",
         currency: body.currency || "USD",
         currentStatus: body.currentStatus || CertificateStatus.HOLD,
@@ -99,13 +95,12 @@ export async function POST(req: Request) {
         dispatchDate: body.dispatchDate ? new Date(body.dispatchDate) : null,
         arrivalDate: body.arrivalDate ? new Date(body.arrivalDate) : null,
         transporter: body.transporter || null,
-        insuranceValue: body.insuranceValue
-          ? Number(body.insuranceValue)
-          : null,
+        trackingNo: body.trackingNo || null,
+        insuranceValue: body.insuranceValue ? String(body.insuranceValue) : null,
+        insurancePolicy: body.insurancePolicy || null,
       },
     });
 
-    // 3. Send Email Dispatch via Resend if clientEmail is provided
     if (newCertificate.clientEmail) {
       const verificationUrl = `${
         process.env.NEXT_PUBLIC_APP_URL || "https://amkatwendelogistics.com"
@@ -140,10 +135,9 @@ export async function POST(req: Request) {
     const errorMessage =
       error instanceof Error ? error.message : "An unknown error occurred";
     console.error("SKR Creation & Email Error:", errorMessage);
-
     return NextResponse.json(
       { success: false, error: errorMessage },
-      { status: 500 },
+      { status: 500 }
     );
   }
 }

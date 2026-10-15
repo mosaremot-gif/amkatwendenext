@@ -3,17 +3,6 @@
 import { useEffect, useState, use, Suspense } from "react";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
-import {
-  Popover,
-  PopoverContent,
-  PopoverTrigger,
-} from "@/components/ui/popover";
-import { CalendarIcon } from "lucide-react";
-import { Calendar } from "@/components/ui/calendar";
-
-import { Button } from "@/components/ui/button";
-
-import { format } from "date-fns";
 import { ArrowLeft, Loader2, Save, CheckCircle2 } from "lucide-react";
 
 interface PageProps {
@@ -24,8 +13,6 @@ function SkrManageForm({ params }: PageProps) {
   const { id } = use(params);
   const router = useRouter();
   const isNew = id === "new";
-  const [dispatchDate, setDispatchDate] = useState<Date | undefined>();
-  const [arrivalDate, setArrivalDate] = useState<Date | undefined>();
 
   const [loading, setLoading] = useState(!isNew);
   const [saving, setSaving] = useState(false);
@@ -46,17 +33,19 @@ function SkrManageForm({ params }: PageProps) {
     refinery: "N/A",
     serialNumber: "",
     assayPurity: "99.9%",
-    numberOfUnits: "",
+    numberOfUnits: 1,
     grossWeight: "",
     fineWeight: "",
     estimatedValue: "",
     priceBasis: "LBMA Spot",
     currency: "USD",
-    currentStatus: "HOLD",
+    currentStatus: "STORED",
     origin: "NAIROBI-KENYA",
     destination: "DUBAI",
     transporter: "",
+    trackingNo: "",
     insuranceValue: "",
+    insurancePolicy: "",
   });
 
   useEffect(() => {
@@ -66,10 +55,6 @@ function SkrManageForm({ params }: PageProps) {
         .then((data) => {
           if (data.success) {
             setFormData(data.data);
-            if (data.data.dispatchDate)
-              setDispatchDate(new Date(data.data.dispatchDate));
-            if (data.data.arrivalDate)
-              setArrivalDate(new Date(data.data.arrivalDate));
           }
           setLoading(false);
         })
@@ -89,11 +74,6 @@ function SkrManageForm({ params }: PageProps) {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setSaving(true);
-    const payload = {
-      ...formData,
-      dispatchDate: dispatchDate ? dispatchDate.toISOString() : null,
-      arrivalDate: arrivalDate ? arrivalDate.toISOString() : null,
-    };
 
     try {
       const endpoint = isNew ? "/api/admin/skrs" : `/api/admin/skrs/${id}`;
@@ -102,7 +82,7 @@ function SkrManageForm({ params }: PageProps) {
       const res = await fetch(endpoint, {
         method,
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(payload),
+        body: JSON.stringify(formData),
       });
 
       const data = await res.json();
@@ -292,7 +272,7 @@ function SkrManageForm({ params }: PageProps) {
             <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
               <div>
                 <label className="block text-xs font-medium text-slate-400 uppercase mb-2">
-                  Metal
+                  Metal Type
                 </label>
                 <input
                   type="text"
@@ -359,18 +339,17 @@ function SkrManageForm({ params }: PageProps) {
                   Number of Units
                 </label>
                 <input
-                  type="text"
+                  type="number"
                   name="numberOfUnits"
                   required
                   value={formData.numberOfUnits}
-                  placeholder="e.g. 20 pallets"
                   onChange={handleChange}
                   className="w-full bg-slate-950 border border-slate-800 rounded-xl px-4 py-2.5 text-white focus:outline-none focus:border-blue-500 transition-all"
                 />
               </div>
               <div>
                 <label className="block text-xs font-medium text-slate-400 uppercase mb-2">
-                  Gross Weight (KG)
+                  Gross Weight (g)
                 </label>
                 <input
                   type="number"
@@ -385,7 +364,7 @@ function SkrManageForm({ params }: PageProps) {
               </div>
               <div>
                 <label className="block text-xs font-medium text-slate-400 uppercase mb-2">
-                  Fine Weight (KG)
+                  Fine Weight (g)
                 </label>
                 <input
                   type="number"
@@ -403,7 +382,7 @@ function SkrManageForm({ params }: PageProps) {
                   Estimated Value (USD)
                 </label>
                 <input
-                  type="text"
+                  type="number"
                   step="0.01"
                   name="estimatedValue"
                   required
@@ -458,10 +437,10 @@ function SkrManageForm({ params }: PageProps) {
                   onChange={handleChange}
                   className="w-full bg-slate-950 border border-slate-800 rounded-xl px-4 py-2.5 text-white focus:outline-none focus:border-blue-500 transition-all"
                 >
-                  <option value="PICKED">Picked</option>
-                  <option value="IN_TRANSIT">In Transit</option>
-                  <option value="HOLD">Hold</option>
-                  <option value="DELIVERED">Delivered</option>
+                  <option value="STORED">STORED</option>
+                  <option value="IN_TRANSIT">IN TRANSIT</option>
+                  <option value="RELEASED">RELEASED</option>
+                  <option value="HOLD">HOLD</option>
                 </select>
               </div>
               <div>
@@ -477,91 +456,46 @@ function SkrManageForm({ params }: PageProps) {
                   className="w-full bg-slate-950 border border-slate-800 rounded-xl px-4 py-2.5 text-white focus:outline-none focus:border-blue-500 transition-all"
                 />
               </div>
-              {/* Dispatch Date Picker */}
               <div>
                 <label className="block text-xs font-medium text-slate-400 uppercase mb-2">
-                  Date Deposited
+                  Tracking No / AWB
                 </label>
-                <Popover>
-                  <PopoverTrigger
-                    render={
-                      <Button
-                        variant="outline"
-                        className="w-full justify-start text-left font-normal bg-slate-950 border-slate-800 text-white hover:bg-slate-900"
-                      />
-                    }
-                  >
-                    <CalendarIcon className="mr-2 h-4 w-4 text-blue-400" />
-                    {dispatchDate ? (
-                      format(dispatchDate, "PPP")
-                    ) : (
-                      <span className="text-slate-500">
-                        Select Date Deposited
-                      </span>
-                    )}
-                  </PopoverTrigger>
-                  <PopoverContent
-                    className="w-auto p-0 bg-slate-900 border-slate-800 text-white shadow-xl"
-                    align="start"
-                  >
-                    <Calendar
-                      mode="single"
-                      selected={dispatchDate}
-                      onSelect={setDispatchDate}
-                    />
-                  </PopoverContent>
-                </Popover>
+                <input
+                  type="text"
+                  name="trackingNo"
+                  placeholder="AWB: 618-00012345"
+                  value={formData.trackingNo}
+                  onChange={handleChange}
+                  className="w-full bg-slate-950 border border-slate-800 rounded-xl px-4 py-2.5 text-white focus:outline-none focus:border-blue-500 transition-all"
+                />
               </div>
-
-              {/* Arrival Date Picker */}
               <div>
                 <label className="block text-xs font-medium text-slate-400 uppercase mb-2">
-                  Arrival Date
+                  Insurance Policy
                 </label>
-                <Popover>
-                  <PopoverTrigger
-                    render={
-                      <Button
-                        variant="outline"
-                        className="w-full justify-start text-left font-normal bg-slate-950 border-slate-800 text-white hover:bg-slate-900"
-                      />
-                    }
-                  >
-                    <CalendarIcon className="mr-2 h-4 w-4 text-blue-400" />
-                    {arrivalDate ? (
-                      format(arrivalDate, "PPP")
-                    ) : (
-                      <span className="text-slate-500">
-                        Select arrival date
-                      </span>
-                    )}
-                  </PopoverTrigger>
-                  <PopoverContent
-                    className="w-auto p-0 bg-slate-900 border-slate-800 text-white shadow-xl"
-                    align="start"
-                  >
-                    <Calendar
-                      mode="single"
-                      selected={arrivalDate}
-                      onSelect={setArrivalDate}
-                    />
-                  </PopoverContent>
-                </Popover>
+                <input
+                  type="text"
+                  name="insurancePolicy"
+                  placeholder="IRA-LIC-2028-AX"
+                  value={formData.insurancePolicy}
+                  onChange={handleChange}
+                  className="w-full bg-slate-950 border border-slate-800 rounded-xl px-4 py-2.5 text-white focus:outline-none focus:border-blue-500 transition-all"
+                />
               </div>
             </div>
           </div>
 
-          <div className="flex flex-col-reverse sm:flex-row items-center justify-end gap-3 pt-6 border-t border-slate-800">
+          <div className="flex justify-end gap-4 pt-4 border-t border-slate-800">
             <Link
               href="/admin"
-              className="w-full sm:w-auto text-center bg-slate-800 hover:bg-slate-700 text-slate-300 px-6 py-3 sm:py-2.5 rounded-xl font-medium transition-all"
+              className="bg-slate-800 hover:bg-slate-700 text-slate-300 px-6 py-2.5 rounded-xl font-medium transition-all"
             >
               Cancel
             </Link>
             <button
               type="submit"
               disabled={saving}
-              className="w-full sm:w-auto justify-center bg-[#1C4E9E] hover:bg-[#163c7b] text-white px-8 py-3 sm:py-2.5 rounded-xl font-medium flex items-center gap-2 shadow-lg shadow-blue-900/30 transition-all disabled:opacity-50"
+              className="bg-[#1C4E9E] hover:bg-[#163c7b] text-white px-8 py-2.5 rounded-xl font-medium flex items-center gap-2 shadow-lg shadow-blue-900/30 transition-all disabled:opacity-50"
             >
               {saving ? (
                 <Loader2 className="w-5 h-5 animate-spin" />

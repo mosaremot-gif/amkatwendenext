@@ -6,7 +6,6 @@ interface RouteContext {
   params: Promise<{ id: string }>;
 }
 
-// GET: Fetch single SKR by ID for editing
 export async function GET(req: Request, context: RouteContext) {
   try {
     const { id } = await context.params;
@@ -17,7 +16,7 @@ export async function GET(req: Request, context: RouteContext) {
     if (!certificate) {
       return NextResponse.json(
         { success: false, error: "Certificate not found" },
-        { status: 404 },
+        { status: 404 }
       );
     }
 
@@ -27,12 +26,11 @@ export async function GET(req: Request, context: RouteContext) {
       error instanceof Error ? error.message : "An unknown error occurred";
     return NextResponse.json(
       { success: false, error: errorMessage },
-      { status: 500 },
+      { status: 500 }
     );
   }
 }
 
-// PUT: Update existing SKR record
 export async function PUT(req: Request, context: RouteContext) {
   try {
     const { id } = await context.params;
@@ -45,9 +43,6 @@ export async function PUT(req: Request, context: RouteContext) {
         clientReference: body.clientReference || "-",
         clientType: body.clientType || "Standard",
         legalName: body.legalName || "-",
-        clientName: body.clientName || null,
-        clientEmail: body.clientEmail || null,
-        clientPhone: body.clientPhone || null,
         consignor: body.consignor,
         consignee: body.consignee,
         metalType: body.metalType || "Gold",
@@ -55,10 +50,13 @@ export async function PUT(req: Request, context: RouteContext) {
         refinery: body.refinery || "N/A",
         serialNumber: body.serialNumber,
         assayPurity: body.assayPurity,
-        numberOfUnits: body.numberOfUnits || "1",
-        grossWeight: Number(body.grossWeight),
-        fineWeight: Number(body.fineWeight),
-        estimatedValue: body.estimatedValue?.trim() || "0.00",
+        numberOfUnits: Number(body.numberOfUnits) || 1,
+        grossWeight: body.grossWeight ? String(body.grossWeight) : "0",
+        fineWeight: body.fineWeight ? String(body.fineWeight) : "0",
+        
+        // String conversion for database schema compatibility
+        estimatedValue: body.estimatedValue ? String(body.estimatedValue) : "0",
+        
         priceBasis: body.priceBasis || "LBMA Spot",
         currency: body.currency || "USD",
         currentStatus: body.currentStatus || CertificateStatus.HOLD,
@@ -67,9 +65,9 @@ export async function PUT(req: Request, context: RouteContext) {
         dispatchDate: body.dispatchDate ? new Date(body.dispatchDate) : null,
         arrivalDate: body.arrivalDate ? new Date(body.arrivalDate) : null,
         transporter: body.transporter || null,
-        insuranceValue: body.insuranceValue
-          ? Number(body.insuranceValue)
-          : null,
+        trackingNo: body.trackingNo || null,
+        insuranceValue: body.insuranceValue ? String(body.insuranceValue) : null,
+        insurancePolicy: body.insurancePolicy || null,
       },
     });
 
@@ -80,7 +78,7 @@ export async function PUT(req: Request, context: RouteContext) {
     console.error("SKR Update Error:", errorMessage);
     return NextResponse.json(
       { success: false, error: errorMessage },
-      { status: 500 },
+      { status: 500 }
     );
   }
 }

@@ -58,7 +58,7 @@ export const QuoteContact: React.FC = () => {
     >
       {/* Background Ambient Glows */}
       <div className="absolute top-1/4 -right-32 w-96 h-96 bg-[#1C4E9E]/20 rounded-full blur-3xl pointer-events-none" />
-      <div className="absolute bottom-10 -left-32 w-96 h-96 bg-[#F07C33]/15 rounded-full blur-3xl pointer-events-none" />
+      <div className="absolute bottom-10 -left-32 w-96 h-96 bg-[#f4772b]/15 rounded-full blur-3xl pointer-events-none" />
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         {/* Section Header */}
@@ -70,12 +70,12 @@ export const QuoteContact: React.FC = () => {
           className="text-center max-w-3xl mx-auto mb-16"
         >
           <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-[#1C4E9E]/30 border border-blue-400/30 text-blue-200 text-xs font-bold uppercase tracking-[0.18em] mb-4 backdrop-blur-md">
-            <Send className="w-4 h-4 text-[#F07C33]" />
+            <Send className="w-4 h-4 text-[#f4772b]" />
             <span>Get In Touch</span>
           </div>
           <h2 className="text-3xl sm:text-5xl font-extrabold tracking-tight mb-4">
             We Create Opportunity to{" "}
-            <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#F07C33] to-orange-400">
+            <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#f4772b] to-orange-400">
               Reach Potential
             </span>
           </h2>
@@ -106,7 +106,7 @@ export const QuoteContact: React.FC = () => {
                     : "text-slate-400 hover:text-white"
                 }`}
               >
-                <FileText className="w-4 h-4 text-[#F07C33]" />
+                <FileText className="w-4 h-4 text-[#f4772b]" />
                 <span>Request a Quote</span>
               </button>
 
@@ -119,7 +119,7 @@ export const QuoteContact: React.FC = () => {
                     : "text-slate-400 hover:text-white"
                 }`}
               >
-                <Headphones className="w-4 h-4 text-[#F07C33]" />
+                <Headphones className="w-4 h-4 text-[#f4772b]" />
                 <span>24/7 Hours Support</span>
               </button>
             </div>
@@ -142,7 +142,7 @@ export const QuoteContact: React.FC = () => {
                 <button
                   type="button"
                   onClick={() => setSubmitted(false)}
-                  className="text-xs font-bold uppercase tracking-wider text-[#F07C33] underline hover:text-orange-300"
+                  className="text-xs font-bold uppercase tracking-wider text-[#f4772b] underline hover:text-orange-300"
                 >
                   Submit Another Inquiry
                 </button>
@@ -264,7 +264,7 @@ export const QuoteContact: React.FC = () => {
                 <button
                   type="submit"
                   disabled={loading}
-                  className="w-full bg-[#F07C33] hover:bg-[#d96825] text-white font-bold py-4 rounded-xl shadow-lg shadow-orange-600/30 transition-all flex items-center justify-center gap-2 text-sm disabled:opacity-50"
+                  className="w-full bg-[#f4772b] hover:bg-[#d96825] text-white font-bold py-4 rounded-xl shadow-lg shadow-orange-600/30 transition-all flex items-center justify-center gap-2 text-sm disabled:opacity-50"
                 >
                   {loading ? (
                     <span>Processing...</span>
@@ -296,7 +296,7 @@ export const QuoteContact: React.FC = () => {
               />
               <div className="absolute inset-0 bg-gradient-to-t from-slate-950 via-slate-950/40 to-transparent" />
               <div className="absolute bottom-6 left-6 right-6">
-                <span className="text-xs font-bold uppercase tracking-wider text-[#F07C33]">
+                <span className="text-xs font-bold uppercase tracking-wider text-[#f4772b]">
                   Nairobi Headquarters
                 </span>
                 <h4 className="text-lg font-bold text-white mt-1">
@@ -314,7 +314,7 @@ export const QuoteContact: React.FC = () => {
               {/* Email */}
               <div className="flex items-start gap-4">
                 <div className="w-10 h-10 rounded-xl bg-[#1C4E9E] flex items-center justify-center text-white shrink-0 shadow-md">
-                  <Mail className="w-5 h-5 text-[#F07C33]" />
+                  <Mail className="w-5 h-5 text-[#f4772b]" />
                 </div>
                 <div>
                   <span className="block text-xs font-bold text-slate-400 uppercase tracking-wider">
@@ -332,7 +332,7 @@ export const QuoteContact: React.FC = () => {
               {/* Phone & WhatsApp */}
               <div className="flex items-start gap-4">
                 <div className="w-10 h-10 rounded-xl bg-[#1C4E9E] flex items-center justify-center text-white shrink-0 shadow-md">
-                  <Phone className="w-5 h-5 text-[#F07C33]" />
+                  <Phone className="w-5 h-5 text-[#f4772b]" />
                 </div>
                 <div>
                   <span className="block text-xs font-bold text-slate-400 uppercase tracking-wider">
@@ -352,15 +352,14 @@ export const QuoteContact: React.FC = () => {
               {/* Physical Office */}
               <div className="flex items-start gap-4">
                 <div className="w-10 h-10 rounded-xl bg-[#1C4E9E] flex items-center justify-center text-white shrink-0 shadow-md">
-                  <Building2 className="w-5 h-5 text-[#F07C33]" />
+                  <Building2 className="w-5 h-5 text-[#f4772b]" />
                 </div>
                 <div>
                   <span className="block text-xs font-bold text-slate-400 uppercase tracking-wider">
                     Physical Office
                   </span>
                   <p className="text-sm font-semibold text-slate-300 leading-snug">
-                    Old Signon, Wing B, 1st Floor, Suite 202, JKIA, Nairobi,
-                    Kenya
+                    Jomo Kenyatta International Cargo Area, Nairobi Kenya
                   </p>
                 </div>
               </div>
@@ -368,7 +367,7 @@ export const QuoteContact: React.FC = () => {
               {/* Hours */}
               <div className="flex items-start gap-4 pt-2">
                 <div className="w-10 h-10 rounded-xl bg-[#1C4E9E] flex items-center justify-center text-white shrink-0 shadow-md">
-                  <Clock className="w-5 h-5 text-[#F07C33]" />
+                  <Clock className="w-5 h-5 text-[#f4772b]" />
                 </div>
                 <div>
                   <span className="block text-xs font-bold text-slate-400 uppercase tracking-wider">
