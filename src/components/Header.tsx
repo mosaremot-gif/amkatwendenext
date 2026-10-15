@@ -32,7 +32,7 @@ export const Header: React.FC = () => {
 
   return (
     <header
-      className={`fixed top-0 left-0 right-0 z-50 bg-white/95 backdrop-blur-md shadow-sm border-b border-slate-100 transition-transform duration-300 ease-in-out ${
+      className={`fixed top-0 left-0 right-0 z-50 bg-white shadow-sm border-b border-slate-100 transition-transform duration-300 ease-in-out ${
         isVisible ? "translate-y-0" : "-translate-y-full"
       }`}
     >
@@ -44,12 +44,12 @@ export const Header: React.FC = () => {
             alt="Amka Twende Logo"
             width={160}
             height={160}
-            className="w-auto h-13 md:h-14 object-contain mix-blend-multiply"
+            className="w-auto h-12 md:h-14 object-contain mix-blend-multiply"
             priority
           />
         </Link>
 
-        {/* Desktop Navigation Links - Updated with absolute routes (/#section) */}
+        {/* Desktop Navigation Links - absolute routes (/#section) */}
         <nav className="hidden md:flex items-center gap-8 font-medium text-slate-700">
           <Link href="/#home" className="hover:text-[#1C4E9E] transition-colors">
             Home
@@ -108,7 +108,7 @@ export const Header: React.FC = () => {
         </button>
       </div>
 
-      {/* Mobile Menu Dropdown - Updated with absolute routes (/#section) */}
+      {/* Mobile Menu Dropdown - absolute routes (/#section) */}
       {isOpen && (
         <div className="md:hidden absolute top-20 left-0 w-full bg-white border-b border-slate-200 shadow-xl py-6 px-6 flex flex-col gap-4 animate-fadeIn">
           <Link
@@ -146,7 +146,7 @@ export const Header: React.FC = () => {
           >
             Contact Us
           </Link>
-          
+
           <div className="pt-4 border-t border-slate-100 flex items-center justify-between">
             <span className="text-sm font-medium text-slate-500">
               Staff Access

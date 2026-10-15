@@ -8,6 +8,7 @@ import {
   Ship,
   Truck,
   Warehouse,
+  PackageCheck,
   ShieldCheck,
   ArrowRight,
 } from "lucide-react";
@@ -28,8 +29,8 @@ export const coreServices = [
     title: "Air Shipping",
     description:
       "High-priority air cargo solutions engineered for speed, time-critical shipments, and direct airline handling through JKIA Nairobi.",
-    image:
-      "\air.jpg",
+    // File lives in public/air.jpg
+    image: "/air.jpg",
   },
   {
     slug: "ocean-freight",
@@ -38,7 +39,7 @@ export const coreServices = [
     description:
       "Cost-effective global containerized shipping (FCL/LCL), consolidated sea cargo, and port operations via Mombasa Port.",
     image:
-      "https://images.unsplash.com/photo-1578575437130-527eed3abbec?auto=format&fit=crop&q=80&w=1200"
+      "https://images.unsplash.com/photo-1578575437130-527eed3abbec?auto=format&fit=crop&q=80&w=1200",
   },
   {
     slug: "road-transport",
@@ -55,8 +56,17 @@ export const coreServices = [
     title: "Warehouse keeping",
     description:
       "Secure, organized storage facilities designed to protect your goods and streamline your inventory workflow.",
-    image:
-      "\warehousing.jpg",
+    // File lives in public/warehousing.jpg
+    image: "/warehousing.jpg",
+  },
+  {
+    slug: "safe-keeping",
+    icon: PackageCheck,
+    title: "Safekeeping",
+    description:
+      "Secure custody of your cargo and valuable goods, with controlled access, careful handling, and full accountability until collection or delivery.",
+    // File lives in public/safekeeping.jpg
+    image: "/safekeeping.jpg",
   },
 ];
 
@@ -126,11 +136,11 @@ export const Services: React.FC = () => {
           viewport={{ once: true, margin: "-50px" }}
           className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8"
         >
-          {coreServices.map((service, index) => {
+          {coreServices.map((service) => {
             const IconComponent = service.icon;
             return (
               <motion.div
-                key={index}
+                key={service.slug}
                 variants={cardVariants}
                 whileHover={{ y: -8 }}
                 className="group bg-slate-900/90 rounded-2xl border border-slate-800 shadow-2xl overflow-hidden flex flex-col justify-between relative transition-all duration-300 hover:border-[#1C4E9E] hover:shadow-blue-900/20"

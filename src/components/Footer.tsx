@@ -1,4 +1,5 @@
 import React from "react";
+import Link from "next/link";
 import {
   Phone,
   Mail,
@@ -7,6 +8,16 @@ import {
   ArrowUpRight,
   ShieldCheck,
 } from "lucide-react";
+
+// Footer service links: slugs match the folders in src/app/services/
+const footerServices = [
+  { title: "Customs Clearing & Forwarding", slug: "customs-clearing" },
+  { title: "Air Shipping", slug: "air-freight" },
+  { title: "Ocean Freight", slug: "ocean-freight" },
+  { title: "Road Transportation", slug: "road-transport" },
+  { title: "Warehouse Keeping", slug: "bonded-warehousing" },
+  { title: "Safekeeping", slug: "safe-keeping" },
+];
 
 export const Footer: React.FC = () => {
   return (
@@ -20,7 +31,7 @@ export const Footer: React.FC = () => {
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 pb-16 border-b border-blue-400/20">
           {/* Column 1: Brand Info */}
           <div className="space-y-6">
-            <a href="#home" className="flex items-center gap-3 group">
+            <Link href="/#home" className="flex items-center gap-3 group">
               <div className="w-11 h-11 rounded-xl bg-[#1C4E9E] flex items-center justify-center shadow-md group-hover:bg-[#f4772b] transition-colors duration-300 p-2">
                 <img
                   src="/favicon.svg"
@@ -36,7 +47,7 @@ export const Footer: React.FC = () => {
                   Logistics & Clearing
                 </span>
               </div>
-            </a>
+            </Link>
 
             <p className="text-blue-100 text-sm leading-relaxed">
               Your dependable partner in customs clearing, forwarding, air &
@@ -100,90 +111,95 @@ export const Footer: React.FC = () => {
             </div>
           </div>
 
-          {/* Column 2: Quick Links */}
+          {/* Column 2: Quick Links (absolute routes so they work from service pages too) */}
           <div className="space-y-4">
             <h4 className="text-sm font-extrabold text-white uppercase tracking-wider border-b border-blue-400/20 pb-3">
               Quick Navigation
             </h4>
             <ul className="space-y-3 text-sm text-blue-100">
               <li>
-                <a
-                  href="#home"
+                <Link
+                  href="/#home"
                   className="hover:text-[#f4772b] transition-colors flex items-center gap-1.5"
                 >
                   <ArrowUpRight className="w-3.5 h-3.5 text-[#f4772b]" />
                   <span>Home Page</span>
-                </a>
+                </Link>
               </li>
               <li>
-                <a
-                  href="#about"
+                <Link
+                  href="/#about"
                   className="hover:text-[#f4772b] transition-colors flex items-center gap-1.5"
                 >
                   <ArrowUpRight className="w-3.5 h-3.5 text-[#f4772b]" />
                   <span>About Our Company</span>
-                </a>
+                </Link>
               </li>
               <li>
-                <a
-                  href="#track"
+                <Link
+                  href="/#track"
                   className="hover:text-[#f4772b] transition-colors flex items-center gap-1.5"
                 >
                   <ArrowUpRight className="w-3.5 h-3.5 text-[#f4772b]" />
                   <span>Track SKR </span>
-                </a>
+                </Link>
               </li>
               <li>
-                <a
-                  href="#services"
+                <Link
+                  href="/#services"
                   className="hover:text-[#f4772b] transition-colors flex items-center gap-1.5"
                 >
                   <ArrowUpRight className="w-3.5 h-3.5 text-[#f4772b]" />
                   <span>Our Services</span>
-                </a>
+                </Link>
               </li>
               <li>
-                <a
-                  href="#values"
+                <Link
+                  href="/#values"
                   className="hover:text-[#f4772b] transition-colors flex items-center gap-1.5"
                 >
                   <ArrowUpRight className="w-3.5 h-3.5 text-[#f4772b]" />
                   <span>Our Core Values</span>
-                </a>
+                </Link>
               </li>
               <li>
-                <a
-                  href="#process"
+                <Link
+                  href="/#process"
                   className="hover:text-[#f4772b] transition-colors flex items-center gap-1.5"
                 >
                   <ArrowUpRight className="w-3.5 h-3.5 text-[#f4772b]" />
                   <span>Operational Process</span>
-                </a>
+                </Link>
               </li>
               <li>
-                <a
-                  href="#contact"
+                <Link
+                  href="/#contact"
                   className="hover:text-[#f4772b] transition-colors flex items-center gap-1.5"
                 >
                   <ArrowUpRight className="w-3.5 h-3.5 text-[#f4772b]" />
                   <span>Request a Quote</span>
-                </a>
+                </Link>
               </li>
             </ul>
           </div>
 
-          {/* Column 3: Logistics Services */}
+          {/* Column 3: Logistics Services (linked to each service page) */}
           <div className="space-y-4">
             <h4 className="text-sm font-extrabold text-white uppercase tracking-wider border-b border-blue-400/20 pb-3">
               Our Services
             </h4>
             <ul className="space-y-3 text-sm text-blue-100">
-              <li>Customs Clearing & Forwarding</li>
-              <li>Air Freight (Express JKIA Dispatch)</li>
-              <li>Ocean & Cargo Freight</li>
-              <li>Regional Road Transportation</li>
-              <li>Bonded Warehousing</li>
-              <li>Door-to-Door Cargo Delivery</li>
+              {footerServices.map((service) => (
+                <li key={service.slug}>
+                  <Link
+                    href={`/services/${service.slug}`}
+                    className="hover:text-[#f4772b] transition-colors flex items-center gap-1.5"
+                  >
+                    <ArrowUpRight className="w-3.5 h-3.5 text-[#f4772b] shrink-0" />
+                    <span>{service.title}</span>
+                  </Link>
+                </li>
+              ))}
             </ul>
           </div>
 

@@ -207,64 +207,7 @@ export const About: React.FC = () => {
           </div>
         </div>
 
-        {/* Services */}
-        <div id="services" className="mt-20 sm:mt-24 lg:mt-28">
-          <div className="mb-9 flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between">
-            <div>
-              <span className="text-[11px] font-bold uppercase tracking-[0.18em] text-[#D96825]">
-                Our services
-              </span>
-              <h3 className="mt-3 text-3xl font-semibold tracking-tight text-slate-950 sm:text-4xl">
-                Logistics, made connected.
-              </h3>
-            </div>
-
-            <p className="max-w-sm text-sm leading-6 text-slate-500">
-              The essential services to help keep your cargo moving from origin
-              to destination.
-            </p>
-          </div>
-
-          <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
-            {services.map((service) => {
-              const Icon = service.icon;
-
-              return (
-                <article
-                  key={service.number}
-                  className="group relative overflow-hidden rounded-xl border border-slate-200/80 bg-white p-6 transition-all duration-300 hover:-translate-y-1 hover:border-orange-200 hover:shadow-xl hover:shadow-slate-200/50 sm:p-7"
-                >
-                  <div className="flex items-start justify-between">
-                    <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-blue-50 text-[#1C4E9E] transition-colors duration-300 group-hover:bg-[#1C4E9E] group-hover:text-white">
-                      <Icon className="h-5 w-5" />
-                    </div>
-
-                    <span className="text-xs font-semibold tabular-nums text-slate-300">
-                      {service.number}
-                    </span>
-                  </div>
-
-                  <h4 className="mt-7 text-lg font-semibold tracking-tight text-slate-950">
-                    {service.title}
-                  </h4>
-
-                  <p className="mt-3 min-h-[48px] text-sm leading-6 text-slate-500">
-                    {service.description}
-                  </p>
-
-                  <div className="mt-6 flex items-center justify-between border-t border-slate-100 pt-4">
-                    <span className="text-xs font-semibold text-[#1C4E9E]">
-                      Explore service
-                    </span>
-                    <ArrowRight className="h-4 w-4 text-[#f58043] transition-transform duration-300 group-hover:translate-x-1" />
-                  </div>
-
-                  <div className="absolute inset-x-0 bottom-0 h-[3px] origin-left scale-x-0 bg-[#f58043] transition-transform duration-300 group-hover:scale-x-100" />
-                </article>
-              );
-            })}
-          </div>
-        </div>
+        
       </div>
     </section>
   );
