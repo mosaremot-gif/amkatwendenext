@@ -1,5 +1,8 @@
+"use client";
+
 import React from "react";
 import Link from "next/link";
+import Image from "next/image";
 import { motion } from "framer-motion";
 import type { Variants } from "framer-motion";
 import {
@@ -11,6 +14,7 @@ import {
   PackageCheck,
   ShieldCheck,
   ArrowRight,
+  Sparkles,
 } from "lucide-react";
 
 export const coreServices = [
@@ -29,8 +33,7 @@ export const coreServices = [
     title: "Air Shipping",
     description:
       "High-priority air cargo solutions engineered for speed, time-critical shipments, and direct airline handling through JKIA Nairobi.",
-    // File lives in public/air.jpg
-    image: "/air.jpg",
+    image: "/rocker-sta-RSYBi_1fhfM-unsplash.jpg",
   },
   {
     slug: "ocean-freight",
@@ -53,10 +56,9 @@ export const coreServices = [
   {
     slug: "bonded-warehousing",
     icon: Warehouse,
-    title: "Warehouse keeping",
+    title: "Warehouse Keeping",
     description:
       "Secure, organized storage facilities designed to protect your goods and streamline your inventory workflow.",
-    // File lives in public/warehousing.jpg
     image: "/warehousing.jpg",
   },
   {
@@ -64,8 +66,7 @@ export const coreServices = [
     icon: PackageCheck,
     title: "Safekeeping",
     description:
-      "Secure custody of your cargo and valuable goods, with controlled access, careful handling, and full accountability until collection or delivery.",
-    // File lives in public/safekeeping.jpg
+      "Secure custody of your cargo and valuable goods, with controlled access, careful handling, and full accountability.",
     image: "/safekeeping.jpg",
   },
 ];
@@ -75,7 +76,7 @@ const containerVariants: Variants = {
   visible: {
     opacity: 1,
     transition: {
-      staggerChildren: 0.15,
+      staggerChildren: 0.12,
     },
   },
 };
@@ -86,8 +87,8 @@ const cardVariants: Variants = {
     opacity: 1,
     y: 0,
     transition: {
-      duration: 0.6,
-      ease: [0.22, 1, 0.36, 1] as const,
+      duration: 0.5,
+      ease: [0.22, 1, 0.36, 1],
     },
   },
 };
@@ -96,11 +97,11 @@ export const Services: React.FC = () => {
   return (
     <section
       id="services"
-      className="py-24 bg-slate-950 text-white relative overflow-hidden"
+      className="py-24 bg-[#0D52CE] text-white relative overflow-hidden"
     >
-      {/* Background Glows */}
-      <div className="absolute top-1/3 -left-32 w-96 h-96 bg-[#1C4E9E]/15 rounded-full blur-3xl pointer-events-none" />
-      <div className="absolute bottom-10 -right-32 w-96 h-96 bg-[#F07C33]/15 rounded-full blur-3xl pointer-events-none" />
+      {/* Background Decorative Lighting */}
+      <div className="absolute top-10 left-10 w-[500px] h-[500px] bg-[#FF5C00]/20 rounded-full blur-[120px] pointer-events-none" />
+      <div className="absolute bottom-10 right-10 w-[500px] h-[500px] bg-blue-400/20 rounded-full blur-[140px] pointer-events-none" />
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         {/* Section Header */}
@@ -111,24 +112,26 @@ export const Services: React.FC = () => {
           transition={{ duration: 0.6 }}
           className="text-center max-w-3xl mx-auto mb-20"
         >
-          <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-[#1C4E9E]/30 border border-blue-400/30 text-blue-200 text-xs font-bold uppercase tracking-[0.18em] mb-4 backdrop-blur-md">
-            <ShieldCheck className="w-4 h-4 text-[#F07C33]" />
+          <div className="inline-flex items-center gap-2 px-5 py-2 rounded-full bg-white/10 border border-white/20 text-white text-xs font-bold uppercase tracking-[0.2em] mb-5 backdrop-blur-xl shadow-lg">
+            <ShieldCheck className="w-4 h-4 text-[#FF5C00]" />
             <span>Our Core Expertise</span>
           </div>
-          <h2 className="text-3xl sm:text-5xl font-extrabold tracking-tight mb-6">
+
+          <h2 className="text-3xl sm:text-5xl lg:text-6xl font-black tracking-tight mb-6">
             Engineered to Move Your Business{" "}
-            <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#F07C33] to-orange-400">
+            <span className="block sm:inline text-transparent bg-clip-text bg-gradient-to-r from-[#FF5C00] via-amber-300 to-[#FF5C00]">
               Forward
             </span>
           </h2>
-          <p className="text-slate-400 text-base sm:text-lg leading-relaxed">
+
+          <p className="text-blue-100/90 text-base sm:text-xl leading-relaxed">
             From JKIA Nairobi to the wider East African borders, we manage your
             entire clearing, forwarding, and supply chain ecosystem with
             absolute precision.
           </p>
         </motion.div>
 
-        {/* Services Image-Card Grid */}
+        {/* Services Grid */}
         <motion.div
           variants={containerVariants}
           initial="hidden"
@@ -143,49 +146,56 @@ export const Services: React.FC = () => {
                 key={service.slug}
                 variants={cardVariants}
                 whileHover={{ y: -8 }}
-                className="group bg-slate-900/90 rounded-2xl border border-slate-800 shadow-2xl overflow-hidden flex flex-col justify-between relative transition-all duration-300 hover:border-[#1C4E9E] hover:shadow-blue-900/20"
+                className="group bg-[#031536]/80 rounded-3xl border border-white/15 shadow-2xl overflow-hidden flex flex-col justify-between relative transition-all duration-300 hover:border-[#FF5C00] hover:shadow-2xl hover:shadow-[#FF5C00]/20 backdrop-blur-xl"
               >
-                {/* Top Accent Line */}
-                <div className="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-[#1C4E9E] to-[#F07C33] opacity-0 group-hover:opacity-100 transition-opacity duration-300 z-20" />
+                {/* Glowing Hover Top Bar */}
+                <div className="absolute top-0 left-0 right-0 h-1.5 bg-gradient-to-r from-[#FF5C00] via-amber-400 to-[#FF5C00] opacity-0 group-hover:opacity-100 transition-opacity duration-300 z-20" />
 
-                <Link href={`/services/${service.slug}`} className="block h-full">
+                <Link
+                  href={`/services/${service.slug}`}
+                  className="block h-full"
+                >
                   <div>
-                    {/* Cover Image */}
-                    <div className="relative h-48 w-full overflow-hidden">
-                      <img
+                    {/* Cover Image Container */}
+                    <div className="relative h-52 w-full overflow-hidden">
+                      <Image
                         src={service.image}
                         alt={service.title}
-                        loading="lazy"
-                        className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
+                        fill
+                        className="object-cover transition-transform duration-700 group-hover:scale-110"
+                        sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
                       />
-                      <div className="absolute inset-0 bg-gradient-to-t from-slate-900 via-slate-900/40 to-transparent" />
+                      <div className="absolute inset-0 bg-gradient-to-t from-[#031536] via-[#031536]/40 to-transparent" />
 
                       {/* Icon Badge */}
-                      <div className="absolute bottom-4 left-6 w-12 h-12 rounded-xl bg-[#1C4E9E] text-white flex items-center justify-center shadow-lg border border-white/10 group-hover:bg-[#F07C33] transition-colors duration-300">
-                        <IconComponent className="w-6 h-6 text-white" />
+                      <div className="absolute bottom-4 left-6 w-14 h-14 rounded-2xl bg-[#0D52CE] text-white flex items-center justify-center shadow-xl border border-white/20 group-hover:bg-[#FF5C00] group-hover:rotate-6 transition-all duration-300">
+                        <IconComponent className="w-7 h-7 text-white" />
                       </div>
                     </div>
 
-                    {/* Content */}
-                    <div className="p-6">
-                      <h3 className="text-xl font-bold text-white mb-3 group-hover:text-blue-300 transition-colors">
+                    {/* Card Body */}
+                    <div className="p-7">
+                      <h3 className="text-xl font-extrabold text-white mb-3 group-hover:text-[#FF5C00] transition-colors">
                         {service.title}
                       </h3>
-                      <p className="text-slate-400 text-sm leading-relaxed mb-6">
+                      <p className="text-blue-100/80 text-sm leading-relaxed">
                         {service.description}
                       </p>
                     </div>
                   </div>
                 </Link>
 
-                {/* Learn More Link */}
-                <div className="px-6 pb-6 pt-2">
+                {/* Card Action Link */}
+                <div className="px-7 pb-7 pt-2">
                   <Link
                     href={`/services/${service.slug}`}
-                    className="inline-flex items-center gap-2 text-xs font-bold text-[#F07C33] group-hover:text-orange-400 transition-colors pt-4 border-t border-slate-800/80 w-full"
+                    className="inline-flex items-center justify-between font-bold text-sm text-[#FF5C00] group-hover:text-amber-300 transition-colors pt-4 border-t border-white/10 w-full"
                   >
-                    <span>Learn More & Details</span>
-                    <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
+                    <span className="flex items-center gap-2">
+                      <Sparkles className="w-4 h-4" />
+                      Learn More & Details
+                    </span>
+                    <ArrowRight className="w-4 h-4 group-hover:translate-x-1.5 transition-transform" />
                   </Link>
                 </div>
               </motion.div>
