@@ -61,7 +61,7 @@ export const Header: React.FC = () => {
               </span>
               <span className="block text-xs font-bold text-[#F07C33] tracking-widest uppercase flex items-center gap-1">
                 <Sparkles className="w-3 h-3 text-amber-500 animate-pulse" />
-                Logistics & Cargo
+                Logistics
               </span>
             </div>
           </Link>

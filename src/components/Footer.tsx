@@ -7,6 +7,7 @@ import {
   Clock,
   ArrowUpRight,
   ShieldCheck,
+  Globe,
 } from "lucide-react";
 
 // Footer service links: slugs match the folders in src/app/services/
@@ -203,43 +204,71 @@ export const Footer: React.FC = () => {
             </ul>
           </div>
 
-          {/* Column 4: Contact & Office Location */}
+          {/* Column 4: Contact & Office Locations */}
           <div className="space-y-4">
             <h4 className="text-sm font-extrabold text-white uppercase tracking-wider border-b border-blue-400/20 pb-3">
-              JKIA Office Terminal
+              Global Locations
             </h4>
 
             <div className="space-y-3 text-xs text-blue-100">
-              <div className="flex items-start gap-3">
-                <MapPin className="w-4 h-4 text-[#f4772b] shrink-0 mt-0.5" />
-                <span>
-                  Old Signon, Wing B, 1st Floor, Suite 202, JKIA, Nairobi, Kenya
-                </span>
+              {/* Head Office - Main Focus */}
+              <div className="space-y-2 pb-2 border-b border-blue-400/10">
+                <div className="flex items-center gap-2">
+                  <span className="px-2 py-0.5 text-[10px] font-bold uppercase tracking-wider bg-[#f4772b] text-white rounded">
+                    Head Office
+                  </span>
+                </div>
+
+                <div className="flex items-start gap-3">
+                  <MapPin className="w-4 h-4 text-[#f4772b] shrink-0 mt-0.5" />
+                  <span className="font-medium text-white">
+                    JKIA, Nairobi, Kenya
+                  </span>
+                </div>
+
+                <div className="flex items-center gap-3">
+                  <Mail className="w-4 h-4 text-[#f4772b] shrink-0" />
+                  <a
+                    href="mailto:amkatwendelogistics1@gmail.com"
+                    className="hover:text-white transition-colors"
+                  >
+                    amkatwendelogistics1@gmail.com
+                  </a>
+                </div>
+
+                <div className="flex items-center gap-3">
+                  <Phone className="w-4 h-4 text-[#f4772b] shrink-0" />
+                  <a
+                    href="https://wa.me/254735941780"
+                    className="hover:text-white transition-colors font-bold text-white"
+                  >
+                    +254 735 941 780
+                  </a>
+                </div>
+
+                <div className="flex items-center gap-3">
+                  <Clock className="w-4 h-4 text-[#f4772b] shrink-0" />
+                  <span>Mon - Sat: 8:00 AM - 6:00 PM</span>
+                </div>
               </div>
 
-              <div className="flex items-center gap-3">
-                <Mail className="w-4 h-4 text-[#f4772b] shrink-0" />
-                <a
-                  href="mailto:amkatwendelogistics1@gmail.com"
-                  className="hover:text-white transition-colors"
-                >
-                  amkatwendelogistics1@gmail.com
-                </a>
-              </div>
+              {/* Regional Branches */}
+              <div className="pt-1 space-y-2">
+                <div className="flex items-center gap-2 text-blue-200 font-semibold text-[11px] uppercase tracking-wider">
+                  <Globe className="w-3.5 h-3.5 text-[#f4772b]" />
+                  <span>Regional Branches</span>
+                </div>
 
-              <div className="flex items-center gap-3">
-                <Phone className="w-4 h-4 text-[#f4772b] shrink-0" />
-                <a
-                  href="https://wa.me/254735941780"
-                  className="hover:text-white transition-colors font-bold text-white"
-                >
-                  +254 735 941 780
-                </a>
-              </div>
-
-              <div className="flex items-center gap-3">
-                <Clock className="w-4 h-4 text-[#f4772b] shrink-0" />
-                <span>Mon - Sat: 8:00 AM - 6:00 PM</span>
+                <div className="flex flex-wrap gap-1.5 pt-1">
+                  {["Uganda", "Zambia", "Tanzania", "Dubai"].map((branch) => (
+                    <span
+                      key={branch}
+                      className="px-2.5 py-1 text-[11px] font-medium text-blue-100 bg-blue-900/40 border border-blue-400/20 rounded-md hover:border-[#f4772b]/50 hover:text-white transition-all"
+                    >
+                      {branch}
+                    </span>
+                  ))}
+                </div>
               </div>
             </div>
           </div>
