@@ -222,7 +222,7 @@ export const Footer: React.FC = () => {
                 <div className="flex items-start gap-3">
                   <MapPin className="w-4 h-4 text-[#f4772b] shrink-0 mt-0.5" />
                   <span className="font-medium text-white">
-                    JKIA, Nairobi, Kenya
+                    Jomo Kenyatta International Airport, Nairobi, Kenya
                   </span>
                 </div>
 
