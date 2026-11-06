@@ -1,6 +1,7 @@
 import { NextResponse } from "next/server";
 import { prisma } from "@/lib/prisma";
 import { CertificateStatus } from "@prisma/client";
+import { findNullByteField } from "@/lib/input-validation";
 
 interface RouteContext {
   params: Promise<{ id: string }>;
@@ -35,6 +36,25 @@ export async function PUT(req: Request, context: RouteContext) {
   try {
     const { id } = await context.params;
     const body = await req.json();
+    const invalidField = findNullByteField(body);
+    if (invalidField) {
+      return NextResponse.json(
+        {
+          success: false,
+          error: `The "${invalidField}" field must not contain a null character.`,
+        },
+        { status: 400 }
+      );
+    }
+    if (
+      body.currentStatus &&
+      !Object.values(CertificateStatus).includes(body.currentStatus)
+    ) {
+      return NextResponse.json(
+        { success: false, error: "Invalid certificate status." },
+        { status: 400 }
+      );
+    }
 
     const updatedCertificate = await prisma.skrCertificate.update({
       where: { id },

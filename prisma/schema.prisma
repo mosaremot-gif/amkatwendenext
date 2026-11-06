@@ -11,7 +11,7 @@ generator client {
 enum CertificateStatus {
   STORED
   IN_TRANSIT
-  RELEASEDP
+  RELEASED
   HOLD
 }
 

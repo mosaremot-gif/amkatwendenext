@@ -2,6 +2,7 @@ import { NextResponse } from "next/server";
 import { prisma } from "@/lib/prisma";
 import { CertificateStatus } from "@prisma/client";
 import { Resend } from "resend";
+import { findNullByteField } from "@/lib/input-validation";
 
 const resend = new Resend(process.env.RESEND_API_KEY);
 
@@ -56,6 +57,25 @@ export async function GET() {
 export async function POST(req: Request) {
   try {
     const body: CreateSkrRequestBody = await req.json();
+    const invalidField = findNullByteField(body);
+    if (invalidField) {
+      return NextResponse.json(
+        {
+          success: false,
+          error: `The "${invalidField}" field must not contain a null character.`,
+        },
+        { status: 400 }
+      );
+    }
+    if (
+      body.currentStatus &&
+      !Object.values(CertificateStatus).includes(body.currentStatus)
+    ) {
+      return NextResponse.json(
+        { success: false, error: "Invalid certificate status." },
+        { status: 400 }
+      );
+    }
 
     const year = new Date().getFullYear();
     const count = await prisma.skrCertificate.count();
